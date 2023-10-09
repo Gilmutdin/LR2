@@ -1,7 +1,7 @@
 package functions;
 
 import java.util.Arrays;
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable
 {
     public ArrayTabulatedFunction(double[] xValues, double[] yValues)
     {
@@ -149,5 +149,75 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction
                 }
             }
         }
+    }
+    public void insert(double x, double y)
+    {
+        if (count == 0)
+        {
+            xValues = new double[] {x};
+            yValues = new double[] {y};
+            count++;
+        }
+        else
+            if (x < xValues[0]) // нужно добавить элементы слева
+            {
+                double[] newXValues = new double[count + 1];
+                double[] newYValues = new double[count + 1];
+                newXValues[0] = x;
+                newYValues[0] = y;
+                System.arraycopy(xValues, 0, newXValues, 1, count);
+                System.arraycopy(yValues, 0, newYValues, 1, count);
+                xValues = newXValues;
+                yValues = newYValues;
+                count++;
+            }
+            else
+                if (x > xValues[count - 1]) // нужно добавить элементы справа
+                {
+                    double[] newXValues = Arrays.copyOf(xValues, count + 1);
+                    double[] newYValues = Arrays.copyOf(yValues, count + 1);
+                    newXValues[count] = x;
+                    newYValues[count] = y;
+                    xValues = newXValues;
+                    yValues = newYValues;
+                    count++;
+                }
+                else // нужно добавить элементы в середину
+                {
+                    int ind = floorIndexOfX(x);
+                    if (x == xValues[ind]) // если такой x нашелся
+                        yValues[ind] = y; // то переписываем y
+                    else
+                    {
+                        double[] newXValues = new double[count + 1];
+                        double[] newYValues = new double[count + 1];
+                        // копируем элементы до ind
+                        System.arraycopy(xValues, 0, newXValues, 0, ind + 1);
+                        System.arraycopy(yValues, 0, newYValues, 0, ind + 1);
+                        // вставляем на нужное место новые элементы
+                        newXValues[ind + 1] = x;
+                        newYValues[ind + 1] = y;
+                        // копируем элементы после ind
+                        System.arraycopy(xValues, ind + 1, newXValues, ind + 2, count - ind - 1);
+                        System.arraycopy(yValues, ind + 1, newYValues, ind + 2, count - ind - 1);
+                        xValues = newXValues;
+                        yValues = newYValues;
+                        count++;
+                    }
+                }
+    }
+    public void remove(int index)
+    {
+        double[] newXValues = new double[count - 1];
+        double[] newYValues = new double[count - 1];
+        // копируем элементы до index
+        System.arraycopy(xValues, 0, newXValues, 0, index);
+        System.arraycopy(yValues, 0, newYValues, 0, index);
+        // копируем элементы после index
+        System.arraycopy(xValues, index + 1, newXValues, index, count - index - 1);
+        System.arraycopy(yValues, index + 1, newYValues, index, count - index - 1);
+        xValues = newXValues;
+        yValues = newYValues;
+        count--;
     }
 }

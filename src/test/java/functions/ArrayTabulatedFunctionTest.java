@@ -106,4 +106,44 @@ class ArrayTabulatedFunctionTest
         assertEquals(res.apply(4), 3);
         assertEquals(res.apply(5), 4);
     }
+
+    @Test
+    void insert1() // x нашелся
+    {
+        ArrayTabulatedFunction res3 = new ArrayTabulatedFunction(xValues, yValues);
+        res3.insert(2, 13);
+        assertEquals(res3.getY(0), 13);
+    }
+    @Test
+    void insert2() // x не нашелся, добавление элемента в начало
+    {
+        ArrayTabulatedFunction res3 = new ArrayTabulatedFunction(xValues, yValues);
+        res3.insert(1, 0);
+        assertEquals(res3.getX(0), 1);
+        assertEquals(res3.getY(0), 0);
+    }
+    @Test
+    void insert3() // x не нашелся, добавление элемента в конец
+    {
+        ArrayTabulatedFunction res3 = new ArrayTabulatedFunction(xValues, yValues);
+        res3.insert(14, 13);
+        assertEquals(res3.getX(6), 14);
+        assertEquals(res3.getY(6), 13);
+    }
+    @Test
+    void insert4() // x не нашелся, добавление элемента в середину
+    {
+        ArrayTabulatedFunction res3 = new ArrayTabulatedFunction(xValues, yValues);
+        res3.insert(7, 6);
+        assertEquals(res3.getX(3), 7);
+        assertEquals(res3.getY(3), 6);
+    }
+    @Test
+    void remove()
+    {
+        ArrayTabulatedFunction res4 = new ArrayTabulatedFunction(xValues, yValues);
+        res4.remove(2);
+        assertEquals(res4.getX(2), 8);
+        assertEquals(res4.getY(2), 7);
+    }
 }

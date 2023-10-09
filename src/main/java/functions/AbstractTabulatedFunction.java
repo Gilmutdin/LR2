@@ -30,13 +30,6 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction
     protected double[] yValues;
     protected int count;
 
-/*    protected AbstractTabulatedFunction(double[] xValues, double[] yValues)
-    {
-        this.xValues = xValues;
-        this.yValues = yValues;
-        count = xValues.length;
-    }*/
-
     protected int floorIndexOfX(double x)
     {
         return 0;
