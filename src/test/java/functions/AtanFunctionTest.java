@@ -20,7 +20,7 @@ class AtanFunctionTest {
     @ParameterizedTest
     @CsvSource(value = {
             "1, 1.5707963267948966",
-            "0, 0"})
+            "0, 0"}, ignoreLeadingAndTrailingWhitespace = true)
     void testApply(double funk, double cor) {
         assertEquals(test.apply(funk), cor);
     }
