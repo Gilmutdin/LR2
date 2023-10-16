@@ -16,6 +16,13 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             this.x = x;
             this.y = y;
         }
+
+        // ---- методы лабы 3 для ноды
+        @Override
+        public String toString(){
+            String finalStr = "(" + Double.toString(x) + "; " + Double.toString(y) + ")";
+            return finalStr;
+        }
     }
 
     private Node head = null;
@@ -47,6 +54,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         }
         return node;
     }
+
+
 
     // конструктор 1
     /** Предполагается, что значения xValues не повторяются и упорядочены.
@@ -290,5 +299,21 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         if(index == 0) head = node.next;
 
         count--;
+    }
+
+    // ---- методы лабы 3 для табулированной функции
+    @Override
+    public String toString(){
+        Node curnode = head;
+        String result = "";
+        do {
+            if (result != "")
+                result += ", ";
+
+            result += "(" + Double.toString(curnode.x) + "; " + Double.toString(curnode.y) + ")";
+            curnode = curnode.next;
+        } while (curnode != head);
+
+        return result;
     }
 }

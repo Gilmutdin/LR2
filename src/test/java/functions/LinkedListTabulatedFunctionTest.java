@@ -294,4 +294,21 @@ class LinkedListTabulatedFunctionTest {
         funk.remove(0);
         assertEquals(funk.getCount(), 0);
     }
+
+    // тесты лабы 3
+
+    @Test
+    void FunkToString(){
+        var funk = new LinkedListTabulatedFunction(new double[]{1, 3, 9, 15}, new double[]{1, 3, 9, 15});
+        assertEquals("(1.0; 1.0), (3.0; 3.0), (9.0; 9.0), (15.0; 15.0)", funk.toString());
+    }
+
+    @Test
+    void NodeToString(){
+        var node = new LinkedListTabulatedFunction(new double[]{}, new double[]{}).new Node(1.0, 2.0, null, null);
+        assertEquals("(1.0; 2.0)", node.toString());
+
+        node = new LinkedListTabulatedFunction(new double[]{}, new double[]{}).new Node(-1.0, -2.5, null, null);
+        assertEquals("(-1.0; -2.5)", node.toString());
+    }
 }
