@@ -324,4 +324,30 @@ class LinkedListTabulatedFunctionTest {
         var funk2 = new LinkedListTabulatedFunction(new double[]{1.0, 3.0, 9.0, 15.0}, new double[]{1.0, 3.0, 9.0, 15.0});
         assertEquals(true, funk1.equals(funk2));
     }
+
+    @Test
+    void NodeClone(){
+        var node1 = new LinkedListTabulatedFunction(new double[]{}, new double[]{}).new Node(1.0, 2.0, null, null);
+        var node2 = node1.clone();
+        assertEquals(true, node1.equals(node2));
+    }
+    @Test
+    void FunkClone(){
+        var funk1 = new LinkedListTabulatedFunction(new double[]{1, 3, 9, 15}, new double[]{1, 3, 9, 15});
+        var funk2 = funk1.clone();
+        assertEquals(true, funk1.equals(funk2));
+    }
+
+    @Test
+    void NodeHash(){
+        var node1 = new LinkedListTabulatedFunction(new double[]{}, new double[]{}).new Node(1.0, 2.0, null, null);
+        var node2 = new LinkedListTabulatedFunction(new double[]{}, new double[]{}).new Node(1, 2, null, null);
+        assertEquals(true, node1.hashCode() == node2.hashCode());
+    }
+    @Test
+    void FunkHash(){
+        var funk1 = new LinkedListTabulatedFunction(new double[]{1, 3, 9, 15}, new double[]{1, 3, 9, 15});
+        var funk2 = funk1.clone();
+        assertEquals(true, funk1.hashCode() == funk2.hashCode());
+    }
 }

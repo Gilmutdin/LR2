@@ -33,6 +33,18 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             Node onode = (Node) o;
             return ((this.x == onode.x) && (this.y == onode.y));
         }
+
+        @Override
+        public Object clone(){
+            Node newNode = new Node(this.x, this.y, this.next, this.prev);
+            return newNode;
+        }
+
+        @Override
+        public int hashCode(){
+            int hashRes = Double.hashCode(this.x) ^ Double.hashCode(this.y);
+            return hashRes;
+        }
     }
 
     private Node head = null;
@@ -346,5 +358,28 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             else return false;
         } while (curnode != head);
         return true;
+    }
+
+    @Override
+    public Object clone(){
+        Node curnode = this.head;
+        LinkedListTabulatedFunction newFunk = new LinkedListTabulatedFunction(new double[]{}, new double[]{});
+        do {
+            newFunk.addNode(curnode.x, curnode.y);
+            curnode = curnode.next;
+        } while (curnode != head);
+        return newFunk;
+    }
+
+    @Override
+    public int hashCode(){
+        int hashRes = 0;
+        Node curnode = this.head;
+        do {
+            hashRes += Double.hashCode(curnode.x) ^ Double.hashCode(curnode.y);
+            curnode = curnode.next;
+        } while (curnode != head);
+
+        return hashRes;
     }
 }
