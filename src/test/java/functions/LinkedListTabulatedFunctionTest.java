@@ -311,4 +311,17 @@ class LinkedListTabulatedFunctionTest {
         node = new LinkedListTabulatedFunction(new double[]{}, new double[]{}).new Node(-1.0, -2.5, null, null);
         assertEquals("(-1.0; -2.5)", node.toString());
     }
+
+    @Test
+    void NodeEquals(){
+        var node1 = new LinkedListTabulatedFunction(new double[]{}, new double[]{}).new Node(1.0, 2.0, null, null);
+        var node2 = new LinkedListTabulatedFunction(new double[]{}, new double[]{}).new Node(1, 2, null, null);
+        assertEquals(true, node1.equals(node2));
+    }
+    @Test
+    void FunkEquals(){
+        var funk1 = new LinkedListTabulatedFunction(new double[]{1, 3, 9, 15}, new double[]{1, 3, 9, 15});
+        var funk2 = new LinkedListTabulatedFunction(new double[]{1.0, 3.0, 9.0, 15.0}, new double[]{1.0, 3.0, 9.0, 15.0});
+        assertEquals(true, funk1.equals(funk2));
+    }
 }

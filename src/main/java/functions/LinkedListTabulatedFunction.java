@@ -19,9 +19,19 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
         // ---- методы лабы 3 для ноды
         @Override
-        public String toString(){
+        public String toString() {
             String finalStr = "(" + Double.toString(x) + "; " + Double.toString(y) + ")";
             return finalStr;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+            if (!(o instanceof Node) || (o == null))
+                return false;
+            Node onode = (Node) o;
+            return ((this.x == onode.x) && (this.y == onode.y));
         }
     }
 
@@ -56,9 +66,10 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
 
-
     // конструктор 1
-    /** Предполагается, что значения xValues не повторяются и упорядочены.
+
+    /**
+     * Предполагается, что значения xValues не повторяются и упорядочены.
      * Также подразумевается, что длина этих массивов совпадает
      */
     LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
@@ -162,7 +173,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         return count;
     }
 
-    private Node floorNodeOfX(double x){
+    private Node floorNodeOfX(double x) {
         Node node = this.head;
         for (int i = 0; i < this.count; i++) {
             if (node.x == x)
@@ -191,7 +202,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         return interpolate(x, left);
     }
 
-    private double interpolate(double x, Node floorNode){
+    private double interpolate(double x, Node floorNode) {
         double leftX = floorNode.x;
         double leftY = floorNode.y;
         floorNode = floorNode.next;
@@ -206,16 +217,18 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         return y;
     }
 
-    /** Метод apply() принимает на вход x.
+    /**
+     * Метод apply() принимает на вход x.
      * Если этот x меньше левой границы, то нужно использовать левую интерполяцию.
      * Если он больше правой границы, то нужно использовать правую интерполяцию.
      * Если он внутри интервала, можно попытаться найти, а есть ли он в таблице, использовав метод indexOf() –
      * если вернулось не -1, то вернуть соответствующее y через метод getY().
      * В противном случае вызвать метод интерполяции с указанием индекса интервала,
-     * предварительно отыскав его с помощью метода floorIndexOfX(double x) */
+     * предварительно отыскав его с помощью метода floorIndexOfX(double x)
+     */
     @Override
     public double apply(double x) {
-        if(x < leftBound()){
+        if (x < leftBound()) {
             return extrapolateLeft(x);
         }
         if (x > rightBound()) {
@@ -232,21 +245,22 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         //return interpolate(x, idxx);
     }
 
-    /** Метод, вставляющий значение в табулированную функцию.
+    /**
+     * Метод, вставляющий значение в табулированную функцию.
      * При этом предполагается, что если x уже содержится в таблице, то его значение y заменяется на новое.
      * Если входное x находится между двумя другими значениями x, то в таблицу добавляется значение между ними.
      * Если входное x левее всех имеющихся x, то значение добавляется в начало таблицы.
      * Если правее – то в конец.
      */
-    public void insert(double x, double y){
+    public void insert(double x, double y) {
         //Если список пустой, то просто делегировать выполнение методу addNode() и завершить выполнение метода insert()
-        if (head == null){
-            addNode(x,y);
+        if (head == null) {
+            addNode(x, y);
             return;
         }
         Node node = head;
         for (int i = 0; i < count; i++) {
-            if (node.x == x){
+            if (node.x == x) {
                 node.y = y;
                 return;
             }
@@ -276,7 +290,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         count++;
     }
 
-    public void remove(int index){
+    public void remove(int index) {
         //Если список пустой, то return
         if (head == null) return;
 
@@ -296,14 +310,14 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         node.prev.next = node.next;
         node.next.prev = node.prev;
         // если удаляем 0й элемент - обновляем голову
-        if(index == 0) head = node.next;
+        if (index == 0) head = node.next;
 
         count--;
     }
 
     // ---- методы лабы 3 для табулированной функции
     @Override
-    public String toString(){
+    public String toString() {
         Node curnode = head;
         String result = "";
         do {
@@ -315,5 +329,22 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         } while (curnode != head);
 
         return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof LinkedListTabulatedFunction) || (o == null))
+            return false;
+        LinkedListTabulatedFunction ofunk = (LinkedListTabulatedFunction) o;
+        Node curnode = this.head;
+        Node onode = ofunk.getNode(0);
+        do {
+            if ((curnode.x == onode.x) && (curnode.y == onode.y)){
+                curnode = curnode.next;
+                onode = onode.next;
+            }
+            else return false;
+        } while (curnode != head);
+        return true;
     }
 }
