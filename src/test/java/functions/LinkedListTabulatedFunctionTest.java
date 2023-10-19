@@ -323,6 +323,9 @@ class LinkedListTabulatedFunctionTest {
         var funk1 = new LinkedListTabulatedFunction(new double[]{1, 3, 9, 15}, new double[]{1, 3, 9, 15});
         var funk2 = new LinkedListTabulatedFunction(new double[]{1.0, 3.0, 9.0, 15.0}, new double[]{1.0, 3.0, 9.0, 15.0});
         assertEquals(true, funk1.equals(funk2));
+
+        var funk3 = new ArrayTabulatedFunction(new double[]{1, 3, 9, 15}, new double[]{1, 3, 9, 15});
+        assertEquals(true, funk2.equals(funk3));
     }
 
     @Test

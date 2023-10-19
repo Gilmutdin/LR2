@@ -36,7 +36,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
         @Override
         public Object clone(){
-            Node newNode = new Node(this.x, this.y, this.next, this.prev);
+            Node newNode = new Node(this.x, this.y, null, null);
             return newNode;
         }
 
@@ -345,19 +345,40 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof LinkedListTabulatedFunction) || (o == null))
+        //если o не наследует Tabuleted, то пока-пока
+        if (!(o instanceof TabulatedFunction) || (o == null))
             return false;
-        LinkedListTabulatedFunction ofunk = (LinkedListTabulatedFunction) o;
-        Node curnode = this.head;
-        Node onode = ofunk.getNode(0);
-        do {
-            if ((curnode.x == onode.x) && (curnode.y == onode.y)){
-                curnode = curnode.next;
-                onode = onode.next;
+        //если o LinkedList, то работаем с ним как со списком
+        if (o instanceof LinkedListTabulatedFunction) {
+            LinkedListTabulatedFunction ofunk = (LinkedListTabulatedFunction) o;
+            Node curnode = this.head;
+            Node onode = ofunk.getNode(0);
+            do {
+                if ((curnode.x == onode.x) && (curnode.y == onode.y)){
+                    curnode = curnode.next;
+                    onode = onode.next;
+                }
+                else return false;
+            } while (curnode != head);
+            return true;
+        }
+        else {
+            TabulatedFunction ofunk = (TabulatedFunction) o;
+            int cnt = ofunk.getCount();
+
+            if (this.getCount() != cnt)
+                return false;
+
+            Node curnode = this.head;
+            for (int i = 0; i < cnt; i++){
+                if ( (curnode.x == ofunk.getX(i)) && (curnode.y == ofunk.getY(i)) )
+                    curnode = curnode.next;
+                else return false;
             }
-            else return false;
-        } while (curnode != head);
-        return true;
+            return true;
+
+        }
+
     }
 
     @Override
@@ -376,7 +397,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         int hashRes = 0;
         Node curnode = this.head;
         do {
-            hashRes += Double.hashCode(curnode.x) ^ Double.hashCode(curnode.y);
+            hashRes += curnode.hashCode();
             curnode = curnode.next;
         } while (curnode != head);
 
