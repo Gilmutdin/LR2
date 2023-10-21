@@ -1,7 +1,5 @@
 package functions;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,13 +34,52 @@ class IdentityFunctionTest {
         assertEquals(test.apply(-0.01), -0.01);
     }
 
-    @AfterEach
-    void tearDown(){
-        System.out.println("@AfterEach executed");
+    @Test
+    public void testToString()
+    {
+        IdentityFunction func = new IdentityFunction();
+        String res = func.toString();
+        assertEquals("class Identity Function", res);
     }
 
-    @AfterAll
-    static void tear(){
-        System.out.println("@AfterAll executed");
+    @Test
+    public void testEqualsSameObject()
+    {
+        IdentityFunction func = new IdentityFunction();
+        assertTrue(func.equals(func));
+    }
+
+    @Test
+    public void testEqualsDifferentClass()
+    {
+        IdentityFunction func = new IdentityFunction();
+        assertFalse(func.equals(new Object()));
+    }
+
+    @Test
+    public void testEqualsSameClass()
+    {
+        IdentityFunction func1 = new IdentityFunction();
+        IdentityFunction func2 = new IdentityFunction();
+        assertTrue(func1.equals(func2));
+    }
+
+    @Test
+    public void testHashCode()
+    {
+        IdentityFunction func1 = new IdentityFunction();
+        int hashCode1 = func1.hashCode();
+        IdentityFunction func2 = new IdentityFunction();
+        int hashCode2 = func2.hashCode();
+        assertEquals(hashCode1, hashCode2);
+    }
+
+    @Test
+    public void testClone()
+    {
+        IdentityFunction func1 = new IdentityFunction();
+        IdentityFunction func2 = (IdentityFunction) func1.clone();
+        assertEquals(func1, func2);
+        assertNotSame(func1, func2);
     }
 }
