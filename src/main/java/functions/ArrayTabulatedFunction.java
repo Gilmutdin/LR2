@@ -1,6 +1,7 @@
 package functions;
 
 import java.util.Arrays;
+import java.util.Objects;
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable
 {
     public ArrayTabulatedFunction(double[] xValues, double[] yValues)
@@ -219,5 +220,45 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         xValues = newXValues;
         yValues = newYValues;
         count--;
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder str = new StringBuilder();
+        str.append("{");
+        for (int i = 0; i < xValues.length; i++)
+        {
+            str.append("(").append(xValues[i]).append(", ").append(yValues[i]).append(")");
+            if (i < xValues.length - 1)
+                str.append(", ");
+        }
+        str.append("}");
+        return str.toString();
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        ArrayTabulatedFunction that = (ArrayTabulatedFunction) o;
+        return Arrays.equals(xValues, that.xValues) && Arrays.equals(yValues, that.yValues);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(Arrays.hashCode(xValues), Arrays.hashCode(yValues));
+    }
+
+    @Override
+    public Object clone()
+    {
+        double[] clonedXValues = Arrays.copyOf(xValues, xValues.length);
+        double[] clonedYValues = Arrays.copyOf(yValues, yValues.length);
+        return new ArrayTabulatedFunction(clonedXValues, clonedYValues);
     }
 }

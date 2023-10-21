@@ -1,7 +1,6 @@
 package functions;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ArrayTabulatedFunctionTest
@@ -145,5 +144,37 @@ class ArrayTabulatedFunctionTest
         res4.remove(2);
         assertEquals(res4.getX(2), 8);
         assertEquals(res4.getY(2), 7);
+    }
+
+    @Test
+    public void testToString()
+    {
+        String expected = "{(2.0, 1.0), (4.0, 3.0), (6.0, 5.0), (8.0, 7.0), (10.0, 9.0), (12.0, 11.0)}";
+        assertEquals(expected, res.toString());
+    }
+
+    @Test
+    public void testEquals()
+    {
+        double[] xValues = {2, 4, 6, 8, 10, 12};
+        double[] yValues = {1, 3, 5, 7, 9, 11};
+        ArrayTabulatedFunction func2 = new ArrayTabulatedFunction(xValues, yValues);
+        assertTrue(res.equals(func2));
+    }
+
+    @Test
+    public void testHashCode()
+    {
+        double[] xValues = {2, 4, 6, 8, 10, 12};
+        double[] yValues = {1, 3, 5, 7, 9, 11};
+        ArrayTabulatedFunction func2 = new ArrayTabulatedFunction(xValues, yValues);
+        assertEquals(res.hashCode(), func2.hashCode());
+    }
+
+    @Test
+    public void testClone()
+    {
+        ArrayTabulatedFunction func2 = (ArrayTabulatedFunction) res.clone();
+        assertEquals(res.toString(), func2.toString());
     }
 }
