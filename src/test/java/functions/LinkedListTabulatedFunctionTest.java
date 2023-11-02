@@ -9,11 +9,13 @@ class LinkedListTabulatedFunctionTest {
 
     @Test
     void constructor1() {
-        var func1 = new LinkedListTabulatedFunction(new double[]{1}, new double[]{2});
-        assertEquals(func1.getCount(), 1);
 
-        var func2 = new LinkedListTabulatedFunction(new double[]{0.1, 4.5, 9.99}, new double[]{2.1, 6.5, 11.99});
-        assertEquals(func2.getCount(), 3);
+        assertThrows(IllegalArgumentException.class, () -> {
+            var funk1 = new LinkedListTabulatedFunction(new double[]{1}, new double[]{2});
+        });
+
+        var funk2 = new LinkedListTabulatedFunction(new double[]{0.1, 4.5, 9.99}, new double[]{2.1, 6.5, 11.99});
+        assertEquals(funk2.getCount(), 3);
     }
 
     @Test
@@ -39,61 +41,59 @@ class LinkedListTabulatedFunctionTest {
         assertEquals(funk.getX(0), 1);
         assertEquals(funk.getX(3), 1);
         assertNotEquals(funk.getX(2), 4);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            var funk1 =  new LinkedListTabulatedFunction(new IdentityFunction(), 1, 1, 1);
+        });
     }
 
     @Test
     void addNode() {
-        var func1 = new LinkedListTabulatedFunction(new double[]{1}, new double[]{2});
+        var func1 = new LinkedListTabulatedFunction(new double[]{1, 2}, new double[]{2, 3});
 
         // проверяем что колво нод прибавилось
         func1.addNode(11,99);
-        assertEquals(func1.getCount(), 2);
+        assertEquals(func1.getCount(), 3);
 
         // смотрим хвост
-        var last = func1.getNode(1);
+        var last = func1.getNode(2);
         assertEquals(last.x, 11);
         assertEquals(last.y, 99);
     }
 
     @Test
     void getNode() {
-        var func1 = new LinkedListTabulatedFunction(new double[]{0.1}, new double[]{2.1});
-        var node = func1.getNode(0);
+
+        var funk1 = new LinkedListTabulatedFunction(new double[]{0.1, 4.5}, new double[]{2.1, 6.5});
+        var node = funk1.getNode(0);
         assertEquals(node.x, 0.1);
         assertEquals(node.y, 2.1);
 
-        //---
-
-        var func2 = new LinkedListTabulatedFunction(new double[]{0.1, 4.5}, new double[]{2.1, 6.5});
-        node = func2.getNode(0);
-        assertEquals(node.x, 0.1);
-        assertEquals(node.y, 2.1);
-
-        node = func2.getNode(1);
+        node = funk1.getNode(1);
         assertEquals(node.x, 4.5);
         assertEquals(node.y, 6.5);
 
         //---
 
-        var func3 = new LinkedListTabulatedFunction(new double[]{0.1, 4.5, 9.99}, new double[]{2.1, 6.5, 11.99});
-        node = func3.getNode(0);
+        var funk2 = new LinkedListTabulatedFunction(new double[]{0.1, 4.5, 9.99}, new double[]{2.1, 6.5, 11.99});
+        node = funk2.getNode(0);
         assertEquals(node.x, 0.1);
         assertEquals(node.y, 2.1);
 
-        node = func3.getNode(1);
+        node = funk2.getNode(1);
         assertEquals(node.x, 4.5);
         assertEquals(node.y, 6.5);
 
-        node = func3.getNode(2);
+        node = funk2.getNode(2);
         assertEquals(node.x, 9.99);
         assertEquals(node.y, 11.99);
     }
 
     @Test
     void getCount() {
-        var funk = new LinkedListTabulatedFunction(new double[]{}, new double[]{});
-        assertEquals(funk.getCount(), 0);
-        funk.addNode(1, 2);
+        var funk = new LinkedListTabulatedFunction(new double[]{1, 2}, new double[]{1, 2});
+        assertEquals(funk.getCount(), 2);
+        funk.remove(1);
         assertEquals(funk.getCount(), 1);
         funk.addNode(4, 3);
         assertEquals(funk.getCount(), 2);
@@ -124,7 +124,7 @@ class LinkedListTabulatedFunctionTest {
 
     @Test
     void setY() {
-        var funk = new LinkedListTabulatedFunction(new double[]{1}, new double[]{2});
+        var funk = new LinkedListTabulatedFunction(new double[]{1, 2}, new double[]{2, 2});
         funk.setY(0, 1);
         assertEquals(funk.getY(0), 1);
 
@@ -157,16 +157,12 @@ class LinkedListTabulatedFunctionTest {
     void leftBound() {
         var funk = new LinkedListTabulatedFunction(new double[]{1, 2, 3, 4, 5}, new double[]{10, 20, 30, 40, 50});
         assertEquals(funk.leftBound(), 1);
-        funk = new LinkedListTabulatedFunction(new double[]{1}, new double[]{1});
-        assertEquals(funk.leftBound(), 1);
     }
 
     @Test
     void rightBound() {
         var funk = new LinkedListTabulatedFunction(new double[]{1, 2, 3, 4, 5}, new double[]{10, 20, 30, 40, 50});
         assertEquals(funk.rightBound(), 5);
-        funk = new LinkedListTabulatedFunction(new double[]{1}, new double[]{1});
-        assertEquals(funk.rightBound(), 1);
     }
 
     @Test
@@ -179,7 +175,9 @@ class LinkedListTabulatedFunctionTest {
         assertEquals(funk.floorIndexOfX(3), 2);
         assertEquals(funk.floorIndexOfX(5), 4);
 
-        assertEquals(funk.floorIndexOfX(0.5), 0);
+        assertThrows(IllegalArgumentException.class, () -> {
+            funk.floorIndexOfX(0.5);
+        });
         assertEquals(funk.floorIndexOfX(5.5), 5);
     }
 
@@ -305,17 +303,17 @@ class LinkedListTabulatedFunctionTest {
 
     @Test
     void NodeToString(){
-        var node = new LinkedListTabulatedFunction(new double[]{}, new double[]{}).new Node(1.0, 2.0, null, null);
+        var node = new LinkedListTabulatedFunction.Node(1.0, 2.0, null, null);
         assertEquals("(1.0; 2.0)", node.toString());
 
-        node = new LinkedListTabulatedFunction(new double[]{}, new double[]{}).new Node(-1.0, -2.5, null, null);
+        node = new LinkedListTabulatedFunction.Node(-1.0, -2.5, null, null);
         assertEquals("(-1.0; -2.5)", node.toString());
     }
 
     @Test
     void NodeEquals(){
-        var node1 = new LinkedListTabulatedFunction(new double[]{}, new double[]{}).new Node(1.0, 2.0, null, null);
-        var node2 = new LinkedListTabulatedFunction(new double[]{}, new double[]{}).new Node(1, 2, null, null);
+        var node1 = new LinkedListTabulatedFunction.Node(1.0, 2.0, null, null);
+        var node2 = new LinkedListTabulatedFunction.Node(1, 2, null, null);
         assertEquals(true, node1.equals(node2));
     }
     @Test
@@ -330,7 +328,7 @@ class LinkedListTabulatedFunctionTest {
 
     @Test
     void NodeClone(){
-        var node1 = new LinkedListTabulatedFunction(new double[]{}, new double[]{}).new Node(1.0, 2.0, null, null);
+        var node1 = new LinkedListTabulatedFunction.Node(1.0, 2.0, null, null);
         var node2 = node1.clone();
         assertEquals(true, node1.equals(node2));
     }
@@ -343,8 +341,8 @@ class LinkedListTabulatedFunctionTest {
 
     @Test
     void NodeHash(){
-        var node1 = new LinkedListTabulatedFunction(new double[]{}, new double[]{}).new Node(1.0, 2.0, null, null);
-        var node2 = new LinkedListTabulatedFunction(new double[]{}, new double[]{}).new Node(1, 2, null, null);
+        var node1 = new LinkedListTabulatedFunction.Node(1.0, 2.0, null, null);
+        var node2 = new LinkedListTabulatedFunction.Node(1, 2, null, null);
         assertEquals(true, node1.hashCode() == node2.hashCode());
     }
     @Test
