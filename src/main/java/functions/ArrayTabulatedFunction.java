@@ -1,9 +1,13 @@
 package functions;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Objects;
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable
 {
+    public Iterator<Point> iterator() throws UnsupportedOperationException{
+        throw new UnsupportedOperationException();
+    }
     public ArrayTabulatedFunction(double[] xValues, double[] yValues)
     {
         super();
