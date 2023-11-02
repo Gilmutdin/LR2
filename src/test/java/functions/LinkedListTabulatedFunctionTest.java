@@ -19,6 +19,14 @@ class LinkedListTabulatedFunctionTest {
             assertEquals(curnode.y,point.y);
             curnode = curnode.next;
         }
+
+        var funk2 = new LinkedListTabulatedFunction(new double[]{1, 2, 3}, new double[]{2, 3, 4});
+        curnode = funk2.getNode(0);
+        for (Point point : funk2) {
+            assertEquals(curnode.x,point.x);
+            assertEquals(curnode.y,point.y);
+            curnode = curnode.next;
+        }
     }
 
     @Test
