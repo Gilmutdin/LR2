@@ -1,11 +1,25 @@
 package functions;
 
 import org.junit.jupiter.api.Test;
-
+import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LinkedListTabulatedFunctionTest {
+
+    @Test
+    void iteratorLinkedTest(){
+        var funk1 = new LinkedListTabulatedFunction(new double[]{1, 2}, new double[]{2, 3});
+        var curnode = funk1.getNode(0);
+        Iterator<Point> iterator = funk1.iterator();
+
+        while(iterator.hasNext()) {
+            Point point = iterator.next();
+            assertEquals(curnode.x,point.x);
+            assertEquals(curnode.y,point.y);
+            curnode = curnode.next;
+        }
+    }
 
     @Test
     void constructor1() {

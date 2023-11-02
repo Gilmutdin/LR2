@@ -2,11 +2,34 @@ package functions;
 
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
 
+    @Override
     public Iterator<Point> iterator() throws UnsupportedOperationException{
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        Iterator<Point> it = new Iterator<Point>() {
+            Node node = head;
+            @Override
+            public boolean hasNext() {
+                return (node != null);
+            }
+
+            @Override
+            public Point next() {
+                if (hasNext()) {
+                    var point = new Point(node.x, node.y);
+                    node = node.next;
+                    if (node == head) node = null;
+                    return point;
+                }
+                else {
+                    throw new NoSuchElementException();
+                }
+            }
+        };
+        return it;
     }
     protected static class Node {
         public Node prev;
