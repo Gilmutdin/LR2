@@ -1,8 +1,13 @@
 package functions;
 
 
+import java.util.Iterator;
+
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
 
+    public Iterator<Point> iterator() throws UnsupportedOperationException{
+        throw new UnsupportedOperationException();
+    }
     protected static class Node {
         public Node prev;
         public Node next;
