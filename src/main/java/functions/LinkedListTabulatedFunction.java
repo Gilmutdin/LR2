@@ -3,7 +3,7 @@ package functions;
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
 
-    protected class Node {
+    protected static class Node {
         public Node prev;
         public Node next;
 
@@ -28,20 +28,20 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         public boolean equals(Object o) {
             if (this == o)
                 return true;
-            if (!(o instanceof Node) || (o == null))
+            if ((o == null) || !(o instanceof Node))
                 return false;
             Node onode = (Node) o;
             return ((this.x == onode.x) && (this.y == onode.y));
         }
 
         @Override
-        public Object clone(){
+        public Object clone() {
             Node newNode = new Node(this.x, this.y, null, null);
             return newNode;
         }
 
         @Override
-        public int hashCode(){
+        public int hashCode() {
             int hashRes = Double.hashCode(this.x) ^ Double.hashCode(this.y);
             return hashRes;
         }
@@ -86,6 +86,9 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
      */
     LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
         super();
+        if (xValues.length < 2 || xValues.length != yValues.length) {
+            throw new IllegalArgumentException("count of values must be equal for x and y and not less than 2");
+        }
         for (int i = 0; i < xValues.length; i++) {
             addNode(xValues[i], yValues[i]);
         }
@@ -94,6 +97,11 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     // конструктор 2
     LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         super();
+
+        if (count < 2) {
+            throw new IllegalArgumentException("count of values must be not less than 2");
+        }
+
         if (xFrom > xTo) {
             double t = xFrom;
             xFrom = xTo;
@@ -118,11 +126,15 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     // Метод, получающий значение аргумента x по номеру индекса
     @Override
     public double getX(int index) {
+        if (index < 0 || index >= count)
+            throw new IllegalArgumentException("x index is out of range");
         return getNode(index).x;
     }
 
     @Override
     public double getY(int index) {
+        if (index < 0 || index >= count)
+            throw new IllegalArgumentException("y index is out of range");
         return getNode(index).y;
     }
 
@@ -173,6 +185,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
      */
     @Override
     protected int floorIndexOfX(double x) {
+        if (x < leftBound())
+            throw new IllegalArgumentException("x value is out of range");
         Node node = this.head;
         for (int i = 0; i < this.count; i++) {
             if (node.x == x)
@@ -186,6 +200,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     private Node floorNodeOfX(double x) {
+        if (x < leftBound())
+            throw new IllegalArgumentException("x value is out of range");
         Node node = this.head;
         for (int i = 0; i < this.count; i++) {
             if (node.x == x)
@@ -346,23 +362,25 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     @Override
     public boolean equals(Object o) {
         //если o не наследует Tabuleted, то пока-пока
-        if (!(o instanceof TabulatedFunction) || (o == null))
+        if ((o == null) || !(o instanceof TabulatedFunction))
             return false;
         //если o LinkedList, то работаем с ним как со списком
         if (o instanceof LinkedListTabulatedFunction) {
             LinkedListTabulatedFunction ofunk = (LinkedListTabulatedFunction) o;
-            Node curnode = this.head;
-            Node onode = ofunk.getNode(0);
-            do {
-                if ((curnode.x == onode.x) && (curnode.y == onode.y)){
-                    curnode = curnode.next;
-                    onode = onode.next;
-                }
-                else return false;
-            } while (curnode != head);
-            return true;
-        }
-        else {
+            if (this.hashCode() == ofunk.hashCode()) {
+                Node curnode = this.head;
+                Node onode = ofunk.getNode(0);
+                do {
+                    if (curnode.hashCode() == onode.hashCode()) {
+                        if ((curnode.x == onode.x) && (curnode.y == onode.y)) {
+                            curnode = curnode.next;
+                            onode = onode.next;
+                        }
+                    } else return false;
+                } while (curnode != head);
+                return true;
+            } else return false;
+        } else {
             TabulatedFunction ofunk = (TabulatedFunction) o;
             int cnt = ofunk.getCount();
 
@@ -370,30 +388,34 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
                 return false;
 
             Node curnode = this.head;
-            for (int i = 0; i < cnt; i++){
-                if ( (curnode.x == ofunk.getX(i)) && (curnode.y == ofunk.getY(i)) )
+            for (int i = 0; i < cnt; i++) {
+                if ((curnode.x == ofunk.getX(i)) && (curnode.y == ofunk.getY(i)))
                     curnode = curnode.next;
                 else return false;
             }
             return true;
-
         }
-
     }
 
     @Override
-    public Object clone(){
+    public Object clone() {
+
+        double[] xValues = new double[count];
+        double[] yValues = new double[count];
         Node curnode = this.head;
-        LinkedListTabulatedFunction newFunk = new LinkedListTabulatedFunction(new double[]{}, new double[]{});
+        int i = 0;
         do {
-            newFunk.addNode(curnode.x, curnode.y);
+            xValues[i] = curnode.x;
+            yValues[i] = curnode.y;
             curnode = curnode.next;
+            i++;
         } while (curnode != head);
-        return newFunk;
+
+        return new LinkedListTabulatedFunction(xValues, yValues);
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         int hashRes = 0;
         Node curnode = this.head;
         do {
