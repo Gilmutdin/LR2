@@ -58,24 +58,41 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     @Override
     public Iterator<Point> iterator()  {
         //throw new UnsupportedOperationException();
+        LinkedListTabulatedFunction func = this; //....
+
         Iterator<Point> it = new Iterator<Point>() {
-            Node node = head;
+            Node nextNode = head;
+            Node curNode = null;
             @Override
             public boolean hasNext() {
-                return (node != null);
+                return (nextNode != null);
             }
 
             @Override
             public Point next() throws NoSuchElementException {
                 if (hasNext()) {
-                    var point = new Point(node.x, node.y);
-                    node = node.next;
-                    if (node == head) node = null;
+                    curNode = nextNode;
+                    var point = new Point(curNode.x, curNode.y);
+
+                    nextNode = nextNode.next;
+                    if (nextNode == head) nextNode = null;
                     return point;
                 }
                 else {
                     throw new NoSuchElementException();
                 }
+            }
+
+            @Override
+            public void remove() {
+                if (curNode != null) {
+                    var idx = indexOfX(curNode.x);
+                    func.remove(idx);
+                    //!! не самый оптимальный вариант так как при удалении пробегаем весь список с начала до текущей ноды
+                    //!! по хорошему написать (потом) еще 1 метод для удаления ноды по объекту
+                }
+                else
+                    throw new NoSuchElementException();
             }
         };
         return it;

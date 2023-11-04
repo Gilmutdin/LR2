@@ -394,7 +394,6 @@ class LinkedListTabulatedFunctionTest {
         var funk = new LinkedListTabulatedFunction(new double[]{1, 2}, new double[]{2, 3});
         var curnode = funk.getNode(0);
         Iterator<Point> iterator = funk.iterator();
-
         while (iterator.hasNext()) {
             Point point = iterator.next();
             assertEquals(curnode.x, point.x);
@@ -402,6 +401,19 @@ class LinkedListTabulatedFunctionTest {
             curnode = curnode.next;
         }
     }
+
+    @Test
+    void iteratorLinkedTestWhileDelete() {
+        var funk = new LinkedListTabulatedFunction(new double[]{1, 2}, new double[]{2, 3});
+        var curnode = funk.getNode(0);
+        Iterator<Point> iterator = funk.iterator();
+        while (iterator.hasNext()) {
+            iterator.next();
+            iterator.remove();
+        }
+        assertEquals(funk.getCount(), 0);
+    }
+
     @Test
     void iteratorLinkedTestForEach() {
         var funk = new LinkedListTabulatedFunction(new double[]{1, 2, 3}, new double[]{2, 3, 4});
