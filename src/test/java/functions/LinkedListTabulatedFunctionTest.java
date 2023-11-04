@@ -10,30 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class LinkedListTabulatedFunctionTest {
 
     @Test
-    void iteratorLinkedTestWhile() {
-        var funk = new LinkedListTabulatedFunction(new double[]{1, 2}, new double[]{2, 3});
-        var curnode = funk.getNode(0);
-        Iterator<Point> iterator = funk.iterator();
-
-        while (iterator.hasNext()) {
-            Point point = iterator.next();
-            assertEquals(curnode.x, point.x);
-            assertEquals(curnode.y, point.y);
-            curnode = curnode.next;
-        }
-    }
-    @Test
-    void iteratorLinkedTestForEach() {
-        var funk = new LinkedListTabulatedFunction(new double[]{1, 2, 3}, new double[]{2, 3, 4});
-        var curnode = funk.getNode(0);
-        for (Point point : funk) {
-            assertEquals(curnode.x, point.x);
-            assertEquals(curnode.y, point.y);
-            curnode = curnode.next;
-        }
-    }
-
-    @Test
     void constructor1() {
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -95,6 +71,11 @@ class LinkedListTabulatedFunctionTest {
     void getNode() {
 
         var funk1 = new LinkedListTabulatedFunction(new double[]{0.1, 4.5}, new double[]{2.1, 6.5});
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            var node = funk1.getNode(4);
+        });
+
         var node = funk1.getNode(0);
         assertEquals(node.x, 0.1);
         assertEquals(node.y, 2.1);
@@ -139,6 +120,12 @@ class LinkedListTabulatedFunctionTest {
     @Test
     void getX() {
         var funk = new LinkedListTabulatedFunction(new double[]{1, 5, 9, 15}, new double[]{1, 5, 9, 15});
+
+        LinkedListTabulatedFunction finalFunk = funk;
+        assertThrows(IllegalArgumentException.class, () -> {
+            var x = finalFunk.getX(4);
+        });
+
         assertEquals(funk.getX(2), 9);
         funk = new LinkedListTabulatedFunction(new IdentityFunction(), 10, 1, 4);
         assertEquals(funk.getX(1), 4);
@@ -147,6 +134,11 @@ class LinkedListTabulatedFunctionTest {
     @Test
     void getY() {
         var funk = new LinkedListTabulatedFunction(new double[]{1, 5, 9, 15}, new double[]{1, 5, 9, 15});
+
+        LinkedListTabulatedFunction finalFunk = funk;
+        assertThrows(IllegalArgumentException.class, () -> {
+            var y = finalFunk.getY(5);
+        });
         assertEquals(funk.getY(2), 9);
         funk = new LinkedListTabulatedFunction(new IdentityFunction(), 10, 1, 4);
         assertEquals(funk.getY(1), 4);
@@ -155,6 +147,12 @@ class LinkedListTabulatedFunctionTest {
     @Test
     void setY() {
         var funk = new LinkedListTabulatedFunction(new double[]{1, 2}, new double[]{2, 2});
+
+        LinkedListTabulatedFunction finalFunk = funk;
+        assertThrows(IllegalArgumentException.class, () -> {
+            finalFunk.setY(-1, 3);
+        });
+
         funk.setY(0, 1);
         assertEquals(funk.getY(0), 1);
 
@@ -304,6 +302,12 @@ class LinkedListTabulatedFunctionTest {
     @Test
     void remove() {
         var funk = new LinkedListTabulatedFunction(new double[]{1, 3, 9, 15}, new double[]{1, 3, 9, 15});
+
+        LinkedListTabulatedFunction finalFunk = funk;
+        assertThrows(IllegalArgumentException.class, () -> {
+            finalFunk.remove(4);
+        });
+
         // слева
         funk.remove(0);
         assertEquals(funk.leftBound(), 3);
@@ -383,5 +387,29 @@ class LinkedListTabulatedFunctionTest {
         var funk1 = new LinkedListTabulatedFunction(new double[]{1, 3, 9, 15}, new double[]{1, 3, 9, 15});
         var funk2 = funk1.clone();
         assertEquals(true, funk1.hashCode() == funk2.hashCode());
+    }
+
+    @Test
+    void iteratorLinkedTestWhile() {
+        var funk = new LinkedListTabulatedFunction(new double[]{1, 2}, new double[]{2, 3});
+        var curnode = funk.getNode(0);
+        Iterator<Point> iterator = funk.iterator();
+
+        while (iterator.hasNext()) {
+            Point point = iterator.next();
+            assertEquals(curnode.x, point.x);
+            assertEquals(curnode.y, point.y);
+            curnode = curnode.next;
+        }
+    }
+    @Test
+    void iteratorLinkedTestForEach() {
+        var funk = new LinkedListTabulatedFunction(new double[]{1, 2, 3}, new double[]{2, 3, 4});
+        var curnode = funk.getNode(0);
+        for (Point point : funk) {
+            assertEquals(curnode.x, point.x);
+            assertEquals(curnode.y, point.y);
+            curnode = curnode.next;
+        }
     }
 }

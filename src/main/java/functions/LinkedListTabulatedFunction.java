@@ -101,6 +101,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
      * Дополнительно можно реализовать, чтобы в случае, когда индекс больше половины count, бежать с хвоста списка.
      */
     protected Node getNode(int index) {
+        if (index < 0 || index >= count)
+            throw new IllegalArgumentException("index is out of range");
         Node node = this.head;
         for (int i = 0; i < index; i++) {
             node = node.next;
@@ -117,9 +119,11 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
      */
     LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
         super();
+
         if (xValues.length < 2 || xValues.length != yValues.length) {
             throw new IllegalArgumentException("count of values must be equal for x and y and not less than 2");
         }
+
         for (int i = 0; i < xValues.length; i++) {
             addNode(xValues[i], yValues[i]);
         }
@@ -157,15 +161,11 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     // Метод, получающий значение аргумента x по номеру индекса
     @Override
     public double getX(int index) {
-        if (index < 0 || index >= count)
-            throw new IllegalArgumentException("x index is out of range");
         return getNode(index).x;
     }
 
     @Override
     public double getY(int index) {
-        if (index < 0 || index >= count)
-            throw new IllegalArgumentException("y index is out of range");
         return getNode(index).y;
     }
 
@@ -211,13 +211,13 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
      * а должен вернуть индекс максимального значения x, которое меньше заданного x.
      * Так, для набора значений x [-3., 4., 6.] – индексация начинается с нуля – метод, применённый к 4.5,
      * должен вернуть 1, так как 4 – максимальный x из всего массива, который меньше 4.5, и имеет индекс 1.
-     * Если все x больше заданного, то метод должен вернуть 0;
+     * Если все x больше заданного, то метод должен выбросить исключение;
      * если все x меньше заданного, то метод должен вернуть count.
      */
     @Override
     protected int floorIndexOfX(double x) {
         if (x < leftBound())
-            throw new IllegalArgumentException("x value is out of range");
+            throw new IllegalArgumentException("x value is less than left bound");
         Node node = this.head;
         for (int i = 0; i < this.count; i++) {
             if (node.x == x)
@@ -232,7 +232,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     private Node floorNodeOfX(double x) {
         if (x < leftBound())
-            throw new IllegalArgumentException("x value is out of range");
+            throw new IllegalArgumentException("x value is less than left bound");
         Node node = this.head;
         for (int i = 0; i < this.count; i++) {
             if (node.x == x)
@@ -350,6 +350,9 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     public void remove(int index) {
+        if (index < 0 || index >= count)
+            throw new IllegalArgumentException("index is out of range");
+
         //Если список пустой, то return
         if (head == null) return;
 
