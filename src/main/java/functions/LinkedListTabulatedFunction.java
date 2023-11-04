@@ -117,7 +117,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
      * Предполагается, что значения xValues не повторяются и упорядочены.
      * Также подразумевается, что длина этих массивов совпадает
      */
-    LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
+    public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
         super();
 
         if (xValues.length < 2 || xValues.length != yValues.length) {
@@ -130,7 +130,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     // конструктор 2
-    LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+    public LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         super();
 
         if (count < 2) {
