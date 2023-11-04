@@ -6,31 +6,6 @@ import java.util.NoSuchElementException;
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
 
-    @Override
-    public Iterator<Point> iterator() throws UnsupportedOperationException{
-        //throw new UnsupportedOperationException();
-        Iterator<Point> it = new Iterator<Point>() {
-            Node node = head;
-            @Override
-            public boolean hasNext() {
-                return (node != null);
-            }
-
-            @Override
-            public Point next() {
-                if (hasNext()) {
-                    var point = new Point(node.x, node.y);
-                    node = node.next;
-                    if (node == head) node = null;
-                    return point;
-                }
-                else {
-                    throw new NoSuchElementException();
-                }
-            }
-        };
-        return it;
-    }
     protected static class Node {
         public Node prev;
         public Node next;
@@ -59,6 +34,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             if ((o == null) || !(o instanceof Node))
                 return false;
             Node onode = (Node) o;
+            // для Ноды полное сравнение по скорости сопоставимо с вычислением хеша, поэтому нет смысла его тут сначала вызывать
             return ((this.x == onode.x) && (this.y == onode.y));
         }
 
@@ -75,8 +51,35 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         }
     }
 
+
     private Node head = null;
     private int count = 0;
+
+    @Override
+    public Iterator<Point> iterator()  {
+        //throw new UnsupportedOperationException();
+        Iterator<Point> it = new Iterator<Point>() {
+            Node node = head;
+            @Override
+            public boolean hasNext() {
+                return (node != null);
+            }
+
+            @Override
+            public Point next() throws NoSuchElementException {
+                if (hasNext()) {
+                    var point = new Point(node.x, node.y);
+                    node = node.next;
+                    if (node == head) node = null;
+                    return point;
+                }
+                else {
+                    throw new NoSuchElementException();
+                }
+            }
+        };
+        return it;
+    }
 
     protected void addNode(double x, double y) {
         if (head == null) {
@@ -399,11 +402,9 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
                 Node curnode = this.head;
                 Node onode = ofunk.getNode(0);
                 do {
-                    if (curnode.hashCode() == onode.hashCode()) {
-                        if ((curnode.x == onode.x) && (curnode.y == onode.y)) {
-                            curnode = curnode.next;
-                            onode = onode.next;
-                        }
+                    if (curnode.equals(onode)) {
+                        curnode = curnode.next;
+                        onode = onode.next;
                     } else return false;
                 } while (curnode != head);
                 return true;
