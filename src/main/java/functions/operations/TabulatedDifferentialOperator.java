@@ -31,7 +31,7 @@ public class TabulatedDifferentialOperator implements DifferentialOperator<Tabul
 
         for (int i = 0; i < points.length - 1; i++) {
             xValues[i] = points[i].x;
-            yValues[i] = (points[i+1].y - points[i].y)/(points[i+1].x - points[i].x);
+            yValues[i] = (points[i+1].y - points[i].y) / (points[i+1].x - points[i].x);
         }
         xValues[points.length - 1] = points[points.length - 1].x;
         yValues[points.length - 1] = yValues[points.length - 2];
