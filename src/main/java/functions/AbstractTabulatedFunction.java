@@ -1,7 +1,9 @@
 package functions;
 
-public abstract class AbstractTabulatedFunction implements TabulatedFunction
-{
+import exceptions.ArrayIsNotSortedException;
+import exceptions.DifferentLengthOfArraysException;
+
+public abstract class AbstractTabulatedFunction implements TabulatedFunction {
     //Метод получения количества табулированных значений
     public abstract int getCount();
 
@@ -30,23 +32,19 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction
     protected double[] yValues;
     protected int count;
 
-    protected int floorIndexOfX(double x)
-    {
+    protected int floorIndexOfX(double x) {
         return 0;
     }
 
-    protected double extrapolateLeft(double x)
-    {
+    protected double extrapolateLeft(double x) {
         return 0;
     }
 
-    protected double extrapolateRight(double x)
-    {
+    protected double extrapolateRight(double x) {
         return 0;
     }
 
-    protected double interpolate(double x, int floorIndex)
-    {
+    protected double interpolate(double x, int floorIndex) {
         return 0;
     }
 
@@ -58,5 +56,24 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction
     public double apply(double x)
     {
         return 0;
+    }
+
+    public static void checkLengthIsTheSame(double[] xValues, double[] yValues) throws DifferentLengthOfArraysException
+    {
+        if (xValues.length != yValues.length)
+        {
+            throw new DifferentLengthOfArraysException("Длины массивов x и y не равны");
+        }
+    }
+
+    public static void checkSorted(double[] xValues) throws ArrayIsNotSortedException
+    {
+        for (int i = 1; i < xValues.length; i++)
+        {
+            if (xValues[i] < xValues[i - 1])
+            {
+                throw new ArrayIsNotSortedException("Массив x не отсортирован");
+            }
+        }
     }
 }
