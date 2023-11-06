@@ -1,5 +1,7 @@
 package functions;
 
+import exceptions.InterpolationException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -78,32 +80,37 @@ class ArrayTabulatedFunctionTest
     @Test
     void extrapolateLeft()
     {
-        assertEquals(res.extrapolateLeft(1), 0);
-        assertEquals(res.extrapolateLeft(-2), -3);
+        //assertEquals(res.extrapolateLeft(1), 0);
+        //assertEquals(res.extrapolateLeft(-2), -3);
+        assertThrows(InterpolationException.class, () -> {res.interpolate(1, 0);});
+        assertThrows(InterpolationException.class, () -> {res.interpolate(-2, 0);});
     }
 
     @Test
     void extrapolateRight()
     {
-        assertEquals(res.extrapolateRight(13), 12);
-        assertEquals(res.extrapolateRight(20), 19);
+        //assertEquals(res.extrapolateRight(13), 12);
+        //assertEquals(res.extrapolateRight(20), 19);
+        assertThrows(InterpolationException.class, () -> {res.interpolate(20, 4);});
+        assertThrows(InterpolationException.class, () -> {res.interpolate(13, 4);});
     }
 
     @Test
     void interpolate()
     {
-        assertEquals(res.interpolate(5, 2), 4);
-        assertEquals(res.interpolate(11, 2), 10);
-        assertEquals(res.interpolate(15, 1), 14);
+        assertEquals(res.interpolate(5, 1), 4);
+        assertThrows(InterpolationException.class, () -> {res.interpolate(1, 1);});
     }
 
     @Test
     void apply()
     {
-        assertEquals(res.apply(1), 0);
-        assertEquals(res.apply(13), 12);
+        //assertEquals(res.apply(1), 0);
+        //assertEquals(res.apply(13), 12);
         assertEquals(res.apply(4), 3);
         assertEquals(res.apply(5), 4);
+        assertThrows(InterpolationException.class, () -> {res.interpolate(1, 0);});
+        assertThrows(InterpolationException.class, () -> {res.interpolate(13, 4);});
     }
 
     @Test

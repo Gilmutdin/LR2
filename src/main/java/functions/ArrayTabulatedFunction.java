@@ -1,16 +1,49 @@
 package functions;
 
+import exceptions.InterpolationException;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
+
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable
 {
-    public Iterator<Point> iterator() throws UnsupportedOperationException{
-        throw new UnsupportedOperationException();
+    //public Iterator<Point> iterator() throws UnsupportedOperationException
+    //{
+        //throw new UnsupportedOperationException();
+    //}
+
+    @Override
+    public Iterator<Point> iterator()
+    {
+        return new Iterator<Point>()
+        {
+            private int i = 0;
+            @Override
+            public boolean hasNext()
+            {
+                return i < count;
+            }
+            @Override
+            public Point next()
+            {
+                if (!hasNext())
+                {
+                    throw new NoSuchElementException("Нет следующего элемента");
+                }
+                double x = xValues[i];
+                double y = yValues[i];
+                i++;
+                return new Point(x, y);
+            }
+        };
     }
+
     public ArrayTabulatedFunction(double[] xValues, double[] yValues)
     {
         super();
+        checkLengthIsTheSame(xValues, yValues);
+        checkSorted(xValues);
         this.xValues = Arrays.copyOf(xValues, xValues.length);
         this.yValues = Arrays.copyOf(yValues, yValues.length);
         this.count = xValues.length;
@@ -108,6 +141,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         else
             return ind;
     }
+
     public double extrapolateLeft(double x)
     {
         if (count == 1)
@@ -115,6 +149,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         else
             return interpolate(x, 0);
     }
+
     public double extrapolateRight(double x)
     {
         if (count == 1)
@@ -122,8 +157,13 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         else
             return interpolate(x, count - 2);
     }
+
     public double interpolate(double x, int floorIndex)
     {
+        if (x < xValues[floorIndex] || x > xValues[floorIndex + 1])
+        {
+            throw new InterpolationException("Значение x находится вне интервала интерполирования");
+        }
         if (count == 1)
         {
             return yValues[0];
@@ -134,6 +174,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         double rightY = yValues[floorIndex + 1];
         return interpolate(x, leftX, rightX, leftY, rightY);
     }
+
     public double apply(double x)
     {
         if (x < leftBound())
