@@ -1,4 +1,4 @@
-package exceptions;
+package exceptions; // пакет исключений
 
 public class InterpolationException extends RuntimeException
 {
