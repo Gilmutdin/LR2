@@ -1,6 +1,6 @@
 package functions;
 
-
+import exceptions.InterpolationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -136,7 +136,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
      */
     public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
         super();
-
+        checkLengthIsTheSame(xValues, yValues);
+        checkSorted(xValues);
         if (xValues.length < 2 || xValues.length != yValues.length) {
             throw new IllegalArgumentException("count of values must be equal for x and y and not less than 2");
         }
@@ -273,8 +274,13 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     @Override
-    protected double interpolate(double x, int floorIndex) {
+    protected double interpolate(double x, int floorIndex)
+    {
         Node left = getNode(floorIndex);
+        if (((x < left.x || x > left.next.x) && left != head && left.next != head) || (left == head && x < left.x) || (left.next == head && x > left.x))
+        {
+            throw new InterpolationException("Значение x находится вне интервала интерполирования");
+        }
         return interpolate(x, left);
     }
 

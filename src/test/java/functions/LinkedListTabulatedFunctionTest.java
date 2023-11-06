@@ -1,5 +1,7 @@
 package functions;
 
+import exceptions.InterpolationException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
@@ -240,6 +242,7 @@ class LinkedListTabulatedFunctionTest {
         assertEquals(res, 3);
         res = funk.interpolate(7, 1);
         assertEquals(res, 7);
+        assertThrows(InterpolationException.class, () -> {funk.interpolate(0, 0);});
 
         //---
         var funk2 = new LinkedListTabulatedFunction(new double[]{1, 5, 9, 15}, new double[]{1, 1, 1, 1});
@@ -247,8 +250,8 @@ class LinkedListTabulatedFunctionTest {
         assertEquals(res2, 1);
         res2 = funk2.interpolate(7, 1);
         assertEquals(res2, 1);
+        assertThrows(InterpolationException.class, () -> {funk.interpolate(20, 3);});
     }
-
 
     @Test
     void apply() {
