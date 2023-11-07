@@ -9,15 +9,14 @@ public interface TabulatedFunctionFactory {
         return new StrictTabulatedFunction(this.create(xValues, yValues));
     };
 
-    default TabulatedFunction createUnmodifiable(double[] xValues, double[] yValues) {
-        return this.create(xValues, yValues); //!!!! заменить на анмодиф
-    };
+    default TabulatedFunction createUnmodifiable(double[] xValues, double[] yValues)
+    {
+        TabulatedFunction function = create(xValues, yValues);
+        return new UnmodifiableTabulatedFunction(function);
+    }
 
-    default TabulatedFunction createStrictUnmodifiable (double[] xValues, double[] yValues) {
-        return new StrictTabulatedFunction( //!!!! заменить на анмодиф
-                new StrictTabulatedFunction(
-                    this.create(xValues, yValues)
-                )
-               );
-    };
+    default TabulatedFunction createStrictUnmodifiable (double[] xValues, double[] yValues)
+    {
+        return new UnmodifiableTabulatedFunction(new StrictTabulatedFunction(this.create(xValues, yValues)));
+    }
 }
