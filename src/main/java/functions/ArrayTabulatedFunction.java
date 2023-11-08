@@ -83,14 +83,20 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
     public double getX(int index)
     {
+        if (index < 0 || index >= count)
+            throw new IllegalArgumentException("index is out of range");
         return xValues[index];
     }
     public double getY(int index)
     {
+        if (index < 0 || index >= count)
+            throw new IllegalArgumentException("index is out of range");
         return yValues[index];
     }
     public void setY(int index, double value)
     {
+        if (index < 0 || index >= count)
+            throw new IllegalArgumentException("index is out of range");
         yValues[index] = value;
     }
     public int indexOfX(double x)
@@ -121,6 +127,9 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
     public int floorIndexOfX(double x)
     {
+        if (x < leftBound())
+            throw new IllegalArgumentException("x value is less than left bound");
+
         double maxx = Double.MIN_VALUE;
         int ind = 0;
         for (int i = 0; i < count; i++)
