@@ -5,6 +5,8 @@ import exceptions.ArrayIsNotSortedException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class AbstractTabulatedFunctionTest
 {
     @Test
@@ -33,5 +35,14 @@ class AbstractTabulatedFunctionTest
     {
         double[] xValues = {2, 4, 6, 8, 12, 10};
         Assertions.assertThrows(ArrayIsNotSortedException.class, () -> AbstractTabulatedFunction.checkSorted(xValues));
+    }
+
+    @Test
+    void toStr()
+    {
+        double[] xValues = {0, 0.5, 1.0};
+        double[] yValues = {0, 0.25, 1.0};
+        var funk = new LinkedListTabulatedFunction(xValues, yValues);
+        assertEquals("LinkedListTabulatedFunction size = 3\n[0.0; 0.0]\n[0.5; 0.25]\n[1.0; 1.0]", funk.toString());
     }
 }

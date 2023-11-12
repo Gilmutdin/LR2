@@ -13,6 +13,11 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         //throw new UnsupportedOperationException();
     //}
 
+    protected double[] xValues;
+    protected double[] yValues;
+    protected int count;
+
+
     @Override
     public Iterator<Point> iterator()
     {
@@ -276,6 +281,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         count--;
     }
 
+    /*
     @Override
     public String toString()
     {
@@ -290,6 +296,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         str.append("}");
         return str.toString();
     }
+    */
 
     @Override
     public boolean equals(Object o)
