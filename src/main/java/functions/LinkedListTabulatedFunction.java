@@ -401,6 +401,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     // ---- методы лабы 3 для табулированной функции
+    /*
     @Override
     public String toString() {
         Node curnode = head;
@@ -415,7 +416,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
         return result;
     }
-
+    */
     @Override
     public boolean equals(Object o) {
         //если o не наследует Tabuleted, то пока-пока

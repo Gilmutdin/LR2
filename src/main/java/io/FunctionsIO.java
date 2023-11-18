@@ -1,9 +1,13 @@
 package io;
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 import functions.*;
 import functions.factory.*;
 
 import java.io.*;
+<<<<<<< HEAD
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.security.AnyTypePermission;
@@ -19,6 +23,12 @@ public final class FunctionsIO
         throw new UnsupportedOperationException("Этот класс не может быть создан");
     }
 
+=======
+final class FunctionsIO {
+    private FunctionsIO(){
+        throw new UnsupportedOperationException();
+    }
+>>>>>>> origin/master
     public static void writeTabulatedFunction(BufferedOutputStream outputStream, TabulatedFunction function) throws IOException {
         DataOutputStream sout = new DataOutputStream(outputStream);
         // записать число значений таблицы count
@@ -45,6 +55,7 @@ public final class FunctionsIO
         return factory.create(xValues, yValues);
     }
 
+<<<<<<< HEAD
     public static void writeTabulatedFunction(BufferedWriter writer, TabulatedFunction function) throws IOException
     {
         PrintWriter printWriter = new PrintWriter(writer);
@@ -111,3 +122,11 @@ public final class FunctionsIO
         return (ArrayTabulatedFunction) xStream.fromXML(reader);
     }
 }
+=======
+    // !! дописать
+    public static TabulatedFunction readTabulatedFunction(BufferedReader reader, TabulatedFunctionFactory factory) throws IOException {
+
+        return null;
+    }
+}
+>>>>>>> origin/master

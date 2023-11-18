@@ -77,7 +77,7 @@ public class TabulatedFunctionOperationService
     // Методы сложения и вычитания
     public TabulatedFunction add(TabulatedFunction a, TabulatedFunction b)
     {
-        return doOperation(a, b, (u, v) -> u + v);
+        return doOperation(a, b,  (u, v) -> u + v);
     }
 
     public TabulatedFunction subtract(TabulatedFunction a, TabulatedFunction b)

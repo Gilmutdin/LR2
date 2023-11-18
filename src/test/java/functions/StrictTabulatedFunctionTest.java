@@ -38,6 +38,7 @@ class StrictTabulatedFunctionTest {
 
     @Test
     void getX() {
+
         assertThrows(IllegalArgumentException.class, () -> {
             strictFuncLinked.getX(-1);
         });
@@ -110,8 +111,8 @@ class StrictTabulatedFunctionTest {
 
     @Test
     void rightBound() {
-        assertEquals(1, strictFuncLinked.rightBound());
-        assertEquals(1, strictFuncArr.rightBound());
+        assertEquals(3, strictFuncLinked.rightBound());
+        assertEquals(3, strictFuncArr.rightBound());
     }
 
     @Test
