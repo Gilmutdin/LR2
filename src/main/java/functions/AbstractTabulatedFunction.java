@@ -3,7 +3,14 @@ package functions;
 import exceptions.ArrayIsNotSortedException;
 import exceptions.DifferentLengthOfArraysException;
 
-public abstract class AbstractTabulatedFunction implements TabulatedFunction {
+import java.io.Serial;
+import java.io.Serializable;
+
+public abstract class AbstractTabulatedFunction implements TabulatedFunction, Serializable
+{
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     //Метод получения количества табулированных значений
     public abstract int getCount();
 
@@ -27,6 +34,10 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
 
     //Метод, возвращающий самый правый x
     public abstract double rightBound();
+
+    protected double[] xValues;
+    protected double[] yValues;
+    protected int count;
 
     protected int floorIndexOfX(double x) {
         return 0;

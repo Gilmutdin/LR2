@@ -1,13 +1,20 @@
 package functions;
 
 import exceptions.InterpolationException;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable
+import java.io.Serializable;
+import java.io.Serial;
+
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable, Serializable
 {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     //public Iterator<Point> iterator() throws UnsupportedOperationException
     //{
         //throw new UnsupportedOperationException();
@@ -282,20 +289,20 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     /*
-    @Override
-    public String toString()
-    {
-        StringBuilder str = new StringBuilder();
-        str.append("{");
-        for (int i = 0; i < xValues.length; i++)
-        {
-            str.append("(").append(xValues[i]).append(", ").append(yValues[i]).append(")");
-            if (i < xValues.length - 1)
-                str.append(", ");
-        }
-        str.append("}");
-        return str.toString();
-    }
+//    @Override
+//    public String toString()
+//    {
+//        StringBuilder str = new StringBuilder();
+//        str.append("{");
+//        for (int i = 0; i < xValues.length; i++)
+//        {
+//            str.append("(").append(xValues[i]).append(", ").append(yValues[i]).append(")");
+//            if (i < xValues.length - 1)
+//                str.append(", ");
+//        }
+//        str.append("}");
+//        return str.toString();
+//    }
     */
 
     @Override
