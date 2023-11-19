@@ -1,12 +1,14 @@
 package io;
 
 import functions.ArrayTabulatedFunction;
+import functions.LinkedListTabulatedFunction;
 import functions.TabulatedFunction;
 import functions.factory.ArrayTabulatedFunctionFactory;
 import functions.factory.TabulatedFunctionFactory;
 
 import org.junit.jupiter.api.Test;
 
+import static io.FunctionsIO.writeTabulatedFunction;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.*;
@@ -16,33 +18,46 @@ public class FunctionsIOTest
     @Test
     public void testWriteTabulatedFunction() throws IOException
     {
-        File tempFile = new File("temp/writeTest.txt");
-
         double[] xValues = {2, 4, 6, 8, 10, 12};
         double[] yValues = {1, 3, 5, 7, 9, 11};
+        {
+            File tempFile = new File("temp/writeTest.txt");
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
-        FunctionsIO.writeTabulatedFunction(writer, function);
-        writer.close();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+            ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
+            FunctionsIO.writeTabulatedFunction(writer, function);
+            writer.close();
+        }
+
+        {
+            BufferedOutputStream bos1 = new BufferedOutputStream(new FileOutputStream("temp/array function.bin"));
+            BufferedOutputStream bos2 = new BufferedOutputStream(new FileOutputStream("temp/linked list function.bin"));
+            TabulatedFunction arrF = new ArrayTabulatedFunction(xValues, yValues);
+            TabulatedFunction linkedF = new LinkedListTabulatedFunction(xValues, yValues);
+
+            FunctionsIO.writeTabulatedFunction(bos1, arrF);
+            FunctionsIO.writeTabulatedFunction(bos2, linkedF);
+        }
     }
 
     @Test
     public void testReadTabulatedFunction() throws IOException
     {
-        File tempFile = new File("temp/writeTest.txt");
-
         double[] xValues = {2, 4, 6, 8, 10, 12};
         double[] yValues = {1, 3, 5, 7, 9, 11};
 
-        BufferedReader reader = new BufferedReader(new FileReader(tempFile));
-        TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
-        TabulatedFunction result = FunctionsIO.readTabulatedFunction(reader, factory);
-
-        for (int i = 0; i < result.getCount(); i++)
         {
-            assertEquals(xValues[i], result.getX(i));
-            assertEquals(yValues[i], result.getY(i));
+            File tempFile = new File("temp/writeTest.txt");
+
+            BufferedReader reader = new BufferedReader(new FileReader(tempFile));
+            TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
+            TabulatedFunction result = FunctionsIO.readTabulatedFunction(reader, factory);
+
+            for (int i = 0; i < result.getCount(); i++)
+            {
+                assertEquals(xValues[i], result.getX(i));
+                assertEquals(yValues[i], result.getY(i));
+            }
         }
     }
 

@@ -22,10 +22,10 @@ public class TabulatedFunctionFileInputStream {
             exc.printStackTrace();
         }
 
-        /* 2 func
+        // 2 func
         try {
+            System.out.println("Введите размер и значения функции: ");
             BufferedReader bis2 = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("Введите размер и значения функции:");
             TabulatedFunctionFactory linkedFact = new LinkedListTabulatedFunctionFactory();
             TabulatedDifferentialOperator operator = new TabulatedDifferentialOperator(linkedFact);
             TabulatedFunction function = FunctionsIO.readTabulatedFunction(bis2, linkedFact);
@@ -34,7 +34,6 @@ public class TabulatedFunctionFileInputStream {
         catch(IOException exc){
             exc.printStackTrace();
         }
-        
-         */
+
     }
 }

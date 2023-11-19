@@ -5,7 +5,7 @@ import java.io.*;
 import static io.FunctionsIO.writeTabulatedFunction;
 
 public class TabulatedFunctionFileOutputStream {
-    public static void main(){
+    public static void main(String[] args){
         try (
                 BufferedOutputStream bos1 = new BufferedOutputStream(new FileOutputStream("output/array function.bin"));
                 BufferedOutputStream bos2 = new BufferedOutputStream(new FileOutputStream("output/linked list function.bin"))
