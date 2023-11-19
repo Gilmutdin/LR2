@@ -62,27 +62,44 @@ public class FunctionsIOTest
     @Test
     public void testSerializeAndDeserialize() throws IOException, ClassNotFoundException
     {
-        File tempFile2 = new File("temp/serialize.bin");
+        // проверка для ф-ции аррай
+        File tempFile_arr = new File("temp/serialize.bin");
 
         double[] xValues = {2, 4, 6, 8, 10, 12};
         double[] yValues = {1, 3, 5, 7, 9, 11};
 
-        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
+        ArrayTabulatedFunction function_arr = new ArrayTabulatedFunction(xValues, yValues);
 
-        FunctionsIO.serialize(new BufferedOutputStream(new FileOutputStream(tempFile2)), function);
-        TabulatedFunction function2 = FunctionsIO.deserialize(new BufferedInputStream(new FileInputStream(tempFile2)));
+        FunctionsIO.serialize(new BufferedOutputStream(new FileOutputStream(tempFile_arr)), function_arr);
+        TabulatedFunction function_arr_des = FunctionsIO.deserialize(new BufferedInputStream(new FileInputStream(tempFile_arr)));
 
-        for (int i = 0; i < function2.getCount(); i++)
+        for (int i = 0; i < function_arr_des.getCount(); i++)
         {
-            assertEquals(xValues[i], function2.getX(i));
-            assertEquals(yValues[i], function2.getY(i));
+            assertEquals(xValues[i], function_arr_des.getX(i));
+            assertEquals(yValues[i], function_arr_des.getY(i));
         }
+
+        //--
+        // проверка для ф-ции линкедлист
+
+        File tempFile_link = new File("temp/serialize2.bin");
+        LinkedListTabulatedFunction function_Link = new LinkedListTabulatedFunction(xValues, yValues);
+
+        FunctionsIO.serialize(new BufferedOutputStream(new FileOutputStream(tempFile_link)), function_Link);
+        TabulatedFunction function_Link_des = FunctionsIO.deserialize(new BufferedInputStream(new FileInputStream(tempFile_link)));
+
+        for (int i = 0; i < function_Link_des.getCount(); i++)
+        {
+            assertEquals(xValues[i], function_Link_des.getX(i));
+            assertEquals(yValues[i], function_Link_des.getY(i));
+        }
+
     }
 
     @Test
     public void testSerializeXmlAndDeserializeXml() throws IOException
     {
-        File tempFile3 = new File("output/serialize.xml");
+        File tempFile3 = new File("temp/serialize.xml");
 
         double[] xValues = {2, 4, 6, 8, 10, 12};
         double[] yValues = {1, 3, 5, 7, 9, 11};

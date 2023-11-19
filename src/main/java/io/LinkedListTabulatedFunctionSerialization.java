@@ -3,6 +3,9 @@ package io;
 import functions.ArrayTabulatedFunction;
 import functions.LinkedListTabulatedFunction;
 import functions.TabulatedFunction;
+import functions.factory.ArrayTabulatedFunctionFactory;
+import functions.factory.LinkedListTabulatedFunctionFactory;
+import functions.factory.TabulatedFunctionFactory;
 import operations.TabulatedDifferentialOperator;
 
 import java.io.*;
@@ -18,11 +21,16 @@ public class LinkedListTabulatedFunctionSerialization {
         {
             // создание табулированной функции
             TabulatedFunction linkedF = new LinkedListTabulatedFunction(xValues, yValues);
-
+            TabulatedFunctionFactory linkedFact = new LinkedListTabulatedFunctionFactory();
             // нахождение первой и второй производных функции
-            TabulatedDifferentialOperator differentialOperator = new TabulatedDifferentialOperator();
+            TabulatedDifferentialOperator differentialOperator = new TabulatedDifferentialOperator(linkedFact);
             LinkedListTabulatedFunction linkedD1 = (LinkedListTabulatedFunction) differentialOperator.derive(linkedF);
             LinkedListTabulatedFunction linkedD2 = (LinkedListTabulatedFunction) differentialOperator.derive(linkedD1);
+
+            // вывод значений функций
+            System.out.println(linkedF.toString());
+            System.out.println(linkedD1.toString());
+            System.out.println(linkedD2.toString());
 
             // сериализация функций
             FunctionsIO.serialize(bos, linkedF);
