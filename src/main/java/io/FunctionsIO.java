@@ -1,5 +1,6 @@
 package io;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import functions.*;
 import functions.factory.*;
 
@@ -109,5 +110,18 @@ public final class FunctionsIO
         XStream xStream = new XStream();
         xStream.addPermission(AnyTypePermission.ANY); // добавляем разрешение на любой тип
         return (ArrayTabulatedFunction) xStream.fromXML(reader);
+    }
+
+    public static void serializeJson(BufferedWriter writer, ArrayTabulatedFunction function)  throws IOException
+    {
+        ObjectMapper objMap = new ObjectMapper();
+        writer.write(objMap.writeValueAsString(function));
+        writer.flush();
+    }
+
+    public static ArrayTabulatedFunction deserializeJson(BufferedReader reader) throws IOException {
+        ObjectMapper objMap = new ObjectMapper();
+        ArrayTabulatedFunction res = objMap.readerFor(ArrayTabulatedFunction.class).readValue(reader);
+        return res;
     }
 }

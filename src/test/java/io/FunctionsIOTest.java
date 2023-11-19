@@ -87,11 +87,13 @@ public class FunctionsIOTest
         double[] xValues = {2, 4, 6, 8, 10, 12};
         double[] yValues = {1, 3, 5, 7, 9, 11};
 
+        // сериализация
         ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile3));
         FunctionsIO.serializeXml(writer, function);
         writer.close();
 
+        // десериализация
         BufferedReader reader = new BufferedReader(new FileReader(tempFile3));
         TabulatedFunction function3 = FunctionsIO.deserializeXml(reader);
 
@@ -102,13 +104,36 @@ public class FunctionsIOTest
         }
     }
 
+    @Test
+    void testSerializeAndDeserializeJSON() throws IOException {
+        File tempFile4 = new File("temp/serialize.json");
+
+        double[] xValues = {2, 4, 6, 8, 10, 12};
+        double[] yValues = {1, 3, 5, 7, 9, 11};
+
+        // сериализация
+        ArrayTabulatedFunction serFunction = new ArrayTabulatedFunction(xValues, yValues);
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile4));
+        FunctionsIO.serializeJson(writer, serFunction);
+        writer.close();
+
+        // десериализация
+        BufferedReader reader = new BufferedReader(new FileReader(tempFile4));
+        TabulatedFunction deserFunction = FunctionsIO.deserializeJson(reader);
+
+        for (int i = 0; i < deserFunction.getCount(); i++)
+        {
+            assertEquals(xValues[i], deserFunction.getX(i));
+            assertEquals(yValues[i], deserFunction.getY(i));
+        }
+    }
 
     @AfterAll
     public static void cleanup(){
         File file = new File("temp/");
         String[] myFiles;
         myFiles = file.list();
-        for (int i=0; i < myFiles.length; i++) {
+        for (int i = 0; i < myFiles.length; i++) {
             File myFile = new File(file, myFiles[i]);
             myFile.delete();
         }

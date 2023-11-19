@@ -1,5 +1,8 @@
 package functions;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import exceptions.InterpolationException;
 
 import java.util.Arrays;
@@ -19,8 +22,9 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     //{
         //throw new UnsupportedOperationException();
     //}
-
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     protected double[] xValues;
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     protected double[] yValues;
     protected int count;
 
@@ -51,7 +55,8 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         };
     }
 
-    public ArrayTabulatedFunction(double[] xValues, double[] yValues)
+    @JsonCreator
+    public ArrayTabulatedFunction(@JsonProperty(value = "xValues") double[] xValues, @JsonProperty(value = "yValues") double[] yValues)
     {
         super();
         checkLengthIsTheSame(xValues, yValues);
