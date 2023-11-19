@@ -332,11 +332,12 @@ class LinkedListTabulatedFunctionTest {
 
     // тесты лабы 3
 
-    @Test
+    /* @Test
     void FunkToString() {
         var funk = new LinkedListTabulatedFunction(new double[]{1, 3, 9, 15}, new double[]{1, 3, 9, 15});
         assertEquals("(1.0; 1.0), (3.0; 3.0), (9.0; 9.0), (15.0; 15.0)", funk.toString());
     }
+    */
 
     @Test
     void NodeToString() {

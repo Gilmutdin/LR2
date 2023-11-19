@@ -7,8 +7,6 @@ import operations.TabulatedDifferentialOperator;
 
 import java.io.*;
 
-import static io.FunctionsIO.writeTabulatedFunction;
-
 public class LinkedListTabulatedFunctionSerialization {
     public static void main(String[] args)
     {

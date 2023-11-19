@@ -4,62 +4,60 @@ import functions.ArrayTabulatedFunction;
 import functions.LinkedListTabulatedFunction;
 import functions.TabulatedFunction;
 import functions.factory.ArrayTabulatedFunctionFactory;
+import functions.factory.LinkedListTabulatedFunctionFactory;
 import functions.factory.TabulatedFunctionFactory;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterAll;
 
-import static io.FunctionsIO.writeTabulatedFunction;
+import static io.FunctionsIO.readTabulatedFunction;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.*;
 
 public class FunctionsIOTest
 {
-    @Test
-    public void testWriteTabulatedFunction() throws IOException
-    {
-        double[] xValues = {2, 4, 6, 8, 10, 12};
-        double[] yValues = {1, 3, 5, 7, 9, 11};
-        {
-            File tempFile = new File("temp/writeTest.txt");
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-            ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
-            FunctionsIO.writeTabulatedFunction(writer, function);
-            writer.close();
-        }
-
-        {
-            BufferedOutputStream bos1 = new BufferedOutputStream(new FileOutputStream("temp/array function.bin"));
-            BufferedOutputStream bos2 = new BufferedOutputStream(new FileOutputStream("temp/linked list function.bin"));
-            TabulatedFunction arrF = new ArrayTabulatedFunction(xValues, yValues);
-            TabulatedFunction linkedF = new LinkedListTabulatedFunction(xValues, yValues);
-
-            FunctionsIO.writeTabulatedFunction(bos1, arrF);
-            FunctionsIO.writeTabulatedFunction(bos2, linkedF);
-        }
-    }
 
     @Test
-    public void testReadTabulatedFunction() throws IOException
+    public void testWriteAndReadTabulatedFunction() throws IOException
     {
-        double[] xValues = {2, 4, 6, 8, 10, 12};
-        double[] yValues = {1, 3, 5, 7, 9, 11};
+        double[] xValues = {0, 0.5, 1.0};
+        double[] yValues = {0, 0.25, 1.0};
 
+        File tempFile = new File("temp/writeTest.txt");
+
+        // запись
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
+        FunctionsIO.writeTabulatedFunction(writer, function);
+        writer.close();
+
+        // чтение
+        BufferedReader reader = new BufferedReader(new FileReader(tempFile));
+        TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
+        TabulatedFunction result = FunctionsIO.readTabulatedFunction(reader, factory);
+
+        for (int i = 0; i < result.getCount(); i++)
         {
-            File tempFile = new File("temp/writeTest.txt");
-
-            BufferedReader reader = new BufferedReader(new FileReader(tempFile));
-            TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
-            TabulatedFunction result = FunctionsIO.readTabulatedFunction(reader, factory);
-
-            for (int i = 0; i < result.getCount(); i++)
-            {
-                assertEquals(xValues[i], result.getX(i));
-                assertEquals(yValues[i], result.getY(i));
-            }
+            assertEquals(xValues[i], result.getX(i));
+            assertEquals(yValues[i], result.getY(i));
         }
+
+        // запись
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("temp/linkedListFunction.bin"));
+        TabulatedFunction linkedF = new LinkedListTabulatedFunction(xValues, yValues);
+        FunctionsIO.writeTabulatedFunction(bos, linkedF);
+
+        // чтение
+        BufferedInputStream bis = new BufferedInputStream(new FileInputStream("temp/linkedListFunction.bin"));
+
+        TabulatedFunctionFactory inputF = new LinkedListTabulatedFunctionFactory();
+        TabulatedFunction func = readTabulatedFunction(bis, inputF);
+        assertEquals("LinkedListTabulatedFunction size = 3\n[0.0; 0.0]\n[0.5; 0.25]\n[1.0; 1.0]", func.toString());
+
     }
+
 
     @Test
     public void testSerializeAndDeserialize() throws IOException, ClassNotFoundException
@@ -103,4 +101,18 @@ public class FunctionsIOTest
             assertEquals(yValues[i], function3.getY(i));
         }
     }
+
+
+    @AfterAll
+    public static void cleanup(){
+        File file = new File("temp/");
+        String[] myFiles;
+        myFiles = file.list();
+        for (int i=0; i < myFiles.length; i++) {
+            File myFile = new File(file, myFiles[i]);
+            myFile.delete();
+        }
+        System.out.println("delete all files in temp");
+    }
+
 }

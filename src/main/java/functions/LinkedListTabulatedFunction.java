@@ -27,12 +27,12 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         }
 
         // ---- методы лабы 3 для ноды
-        @Override
+        /* @Override
         public String toString() {
             String finalStr = "(" + Double.toString(x) + "; " + Double.toString(y) + ")";
             return finalStr;
         }
-
+        */
         @Override
         public boolean equals(Object o) {
             if (this == o)
