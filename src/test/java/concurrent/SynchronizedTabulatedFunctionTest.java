@@ -1,14 +1,16 @@
 package concurrent;
 
 import functions.*;
-import org.junit.jupiter.api.Test;
+
 import java.util.*;
+
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SynchronizedTabulatedFunctionTest {
 
-    double xValues[] = {1, 2, 3};
-    double yValues[] = {1, 2, 3};
+    double[] xValues = {1, 2, 3};
+    double[] yValues = {1, 2, 3};
 
     TabulatedFunction funkLinked = new LinkedListTabulatedFunction(xValues,yValues);
     TabulatedFunction funkArr = new ArrayTabulatedFunction(xValues, yValues);
@@ -94,5 +96,38 @@ class SynchronizedTabulatedFunctionTest {
             assertEquals(funkArr.getY(idx), point.y);
             idx++;
         }
+    }
+
+    @Test
+    public void testIntegerOperation()
+    {
+        SynchronizedTabulatedFunction.Operation<Integer> intOperation = lambda ->
+        {
+            // реализация операции для Integer с использованием лямбда-выражения
+            return 42; // например просто вернем константу 42 в качестве результата
+        };
+        assertEquals(42, syncFunkArr.doSynchronously(intOperation));
+    }
+
+    @Test
+    public void testStringOperation()
+    {
+        SynchronizedTabulatedFunction.Operation<String> stringOperation = lambda ->
+        {
+            // реализация операции для String с использованием лямбда-выражения
+            return "Hello, World!";
+        };
+        assertEquals("Hello, World!", syncFunkArr.doSynchronously(stringOperation));
+    }
+
+    @Test
+    public void testVoidOperation()
+    {
+        SynchronizedTabulatedFunction.Operation<Void> voidOperation = lambda ->
+        {
+            // реализация операции для Void с использованием лямбда-выражения
+            return null; // ничего не возвращаем
+        };
+        assertNull(syncFunkArr.doSynchronously(voidOperation));
     }
 }
