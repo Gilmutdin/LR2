@@ -1,10 +1,13 @@
 package operations;
 
+import concurrent.SynchronizedTabulatedFunction;
+import functions.TabulatedFunction;
 import functions.factory.ArrayTabulatedFunctionFactory;
 import functions.factory.LinkedListTabulatedFunctionFactory;
 import functions.factory.TabulatedFunctionFactory;
-import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.Test;
+import org.junit.Assert;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TabulatedDifferentialOperatorTest {
@@ -79,6 +82,26 @@ class TabulatedDifferentialOperatorTest {
             assertEquals(1+4, fDev.apply(2)); // для ключ точки
             assertEquals(1+6, fDev.apply(3)); // для ключ точки
             assertEquals(1+5, fDev.apply(2.5)); // для промеж точ
+        }
+    }
+
+    @Test
+    public void testDeriveSynchronously()
+    {
+        TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
+        TabulatedDifferentialOperator differentialOperator = new TabulatedDifferentialOperator(factory);
+
+        double[] xValues = {0.0, 1.0, 2.0, 3.0, 4.0};
+        double[] yValues = {0.0, 1.0, 4.0, 9.0, 16.0};
+
+        TabulatedFunction function = factory.create(xValues, yValues);
+        TabulatedFunction derivative = differentialOperator.deriveSynchronously(function);
+
+        double[] expectedDerivativeValues = {1.0, 3.0, 5.0, 7.0, 7.0};
+
+        for (int i = 0; i < xValues.length; i++)
+        {
+            Assert.assertEquals(expectedDerivativeValues[i], derivative.getY(i), 0.001);
         }
     }
 }
