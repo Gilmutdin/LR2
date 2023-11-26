@@ -1,5 +1,7 @@
 package functions;
 
+import concurrent.SynchronizedTabulatedFunction;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
@@ -7,31 +9,49 @@ import java.util.concurrent.*;
 public class ParallelIntegrator
 {
 //    private static final int NUM_THREADS = Runtime.getRuntime().availableProcessors(); // количество доступных процессоров
-    private static final int NUM_THREADS = 4; // просто 4
-    private static final double AREA_PRECISION = 0.001; // точность вычисления интеграла
+    private int threadsCnt;
 
-    public double integrate(Integrable function) throws InterruptedException, ExecutionException
+    // конструктор по умолчанию
+    public ParallelIntegrator() {
+        this.threadsCnt = 1;
+    }
+
+    // конструктор с заданием кл-ва потоков
+    public ParallelIntegrator(int threadsCnt) {
+        this.threadsCnt = threadsCnt;
+    }
+
+    // считает интеграл функции на всей области ее задания от Xmin до Xmax
+    // передаем точность вычисления интеграла
+    public double integrate(TabulatedFunction function, double precision) throws InterruptedException, ExecutionException
     {
         // получение границ интегрирования
-        double lowerBound = function.getLeftBound();
-        double upperBound = function.getRightBound();
+        double lowerBound = function.leftBound();
+        double upperBound = function.rightBound();
 
         // создание пула потоков для параллельных вычислений
-        ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS); // создаем ExecutorService с фиксированным числом потоков
+        ExecutorService executorService = Executors.newFixedThreadPool(threadsCnt); // создаем ExecutorService с фиксированным числом потоков
         List<Future<Double>> futures = new ArrayList<>(); // инициализируем список futures для хранения результатов выполнения каждого потока
 
+        // оборачиваем ф-ю в синхронную обертку для многопоточного доступа
+        SynchronizedTabulatedFunction syncFunc = new SynchronizedTabulatedFunction(function);
+
         // разделение задач на подзадачи и отправка их на выполнение
-        double intervalSize = (upperBound - lowerBound) / NUM_THREADS; // разбиваем общий интервал интегрирования на подынтервалы
-        for (int i = 0; i < NUM_THREADS; i++) // для каждого из них запускаем вычисление частичного интеграла в отдельном потоке
+        double intervalSize = (upperBound - lowerBound) / threadsCnt; // разбиваем общий интервал интегрирования на подынтервалы
+        for (int i = 0; i < threadsCnt; i++) // для каждого из них запускаем вычисление частичного интеграла в отдельном потоке
         {
             double start = lowerBound + i * intervalSize;
             double end = start + intervalSize;
-            futures.add(executorService.submit(() -> computePartialIntegral(function, start, end))); // результаты добавляем в список futures
+            futures.add(
+                    executorService.submit(
+                            () -> computePartialIntegral(function, start, end, precision)
+                    )
+            ); // результаты добавляем в список futures
         }
 
         // остановка пула потоков и ожидание завершения всех задач
         executorService.shutdown();
-        executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        executorService.awaitTermination(1, TimeUnit.MINUTES);
 
         // суммирование результатов
         double totalIntegral = 0.0;
@@ -43,20 +63,29 @@ public class ParallelIntegrator
         return totalIntegral;
     }
 
-    private double computePartialIntegral(Integrable function, double start, double end)
+    private double computePartialIntegral(TabulatedFunction function, double start, double end, double precision)
     {
-        double intervalSize = end - start;
         double sum = 0.0;
 
-        for (double x = start; x < end; x += AREA_PRECISION)
+        double x, y1, y2;
+        double averageY;
+        double area;
+        for (x = start; x <= end - precision; x += precision)
         {
-            double y1 = function.getValueX(x);
-            double y2 = function.getValueX(x + AREA_PRECISION);
-            double averageY = (y1 + y2) / 2.0;
-            double area = averageY * AREA_PRECISION;
+            y1 = function.apply(x);
+            y2 = function.apply(x + precision);
+            averageY = (y1 + y2) / 2.0;
+            area = averageY * precision;
             sum += area;
         }
 
-        return sum * intervalSize;
+        //
+        y1 = function.apply(x);
+        y2 = function.apply(end);
+        averageY = (y1 + y2) / 2.0;
+        area = averageY * (end - x);
+        sum += area;
+
+        return sum;
     }
 }
