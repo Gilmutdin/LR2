@@ -4,7 +4,7 @@
 
 <head>
     <title>Tabulated Function Creator</title>
-    <link rel="stylesheet" href="../page.css">
+    <link rel="stylesheet" href="page.css">
     <!-- Обязательные метатеги для бутстрапа -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,32 +26,40 @@
 
 
 <body>
-    <div class="container-fluid d-flex justify-content-center align-items-center">
-        <h2 class="m-1">Конструктор табулированных функций</h2>
-        <form class="border rounded m-5 p-3 row row-cols-lg-auto g-3" style="width: 711px;">
-            <div class="col">
+
+    <div class="container justify-content-center align-items-center">
+        <div class="row"><div class="text-center col-12 mt-3">
+            <h2>Конструктор табулированных функций</h2>
+        </div></div>
+
+        <div class="row"><div class="container col-lg-8 col-12">
+        <form class="border rounded m-3 p-3 g-3" >
+            <div class="row">
+            <div class="col-12 col-sm-5 mt-0">
                 <label for="FuncSelect">Выберите тип функции</label>
                 <select multiple class="form-control" id="FuncSelect">
                     <option>Линейная: y = x</option>
-                    <option>Квадрат: y = x^2</option>
+                    <option>Квадрат: y = x²</option>
                     <option>Константа: y = const </option>
                     <option>Арктангенс: y = 2arctgx</option>
                 </select>
             </div>
-            <div class="col">
-                <label for="validationTooltip01">Начальное значение x</label>
+            <div class="col-12 col-sm-4 mt-0">
+                <label for="validationTooltip01">Начальное значение&nbsp;x</label>
                 <input type="text" class="form-control" id="validationTooltip01" placeholder="First x" value="1" required>
 
-                <label for="validationTooltip02">Конечное значение x</label>
+                <label for="validationTooltip02">Конечное значение&nbsp;x</label>
                 <input type="text" class="form-control" id="validationTooltip02" placeholder="Last x" value="2" required>
             </div>
-            <div class="col">
+            <div class="col-12 col-sm-3 mt-0">
                 <label for="validationTooltip03">Количество точек</label>
                 <input type="text" class="form-control" id="validationTooltip03" placeholder="Count of values" value="10" required>
 
                 <button type="submit" class="btn btn-primary mt-4" id="btnSubmit">Построить</button>
             </div>
+            </div>
         </form>
+        </div></div>
     </div>
 
 </body>
