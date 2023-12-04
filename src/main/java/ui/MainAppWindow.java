@@ -11,7 +11,7 @@ public class MainAppWindow extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainAppWindow.class.getResource("MainAppView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 320, 300);
         stage.setTitle("Математические функции");
         stage.setScene(scene);
         stage.show();

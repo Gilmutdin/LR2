@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+
+<VBox spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ui.CreateByFuncController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+
+    <VBox>
+        <Label text="Выберите тип функции"/>
+        <ComboBox value="Линейная: y = x" maxWidth="165">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Линейная: y = x" fx:id="lin"/>
+                    <String fx:value="Квадрат: y = x²" fx:id="sqr"/>
+                    <String fx:value="Константа: y = const" fx:id="const"/>
+                    <String fx:value="Арктангенс: y = 2*arctg(x)" fx:id="arc"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </VBox>
+
+    <HBox spacing="20">
+        <VBox>
+            <Label text="X начальное"/>
+            <TextField fx:id="Xstart" maxWidth="60" text="0"/>
+        </VBox>
+
+        <VBox>
+            <Label text="X конечное"/>
+            <TextField fx:id="Xend" maxWidth="60" text="10"/>
+        </VBox>
+
+        <VBox>
+            <Label text="Количество значений"/>
+            <TextField fx:id="pointsCnt" maxWidth="60" text="10"/>
+        </VBox>
+    </HBox>
+
+    <Button text="Создать" minWidth="100"/>
+</VBox>

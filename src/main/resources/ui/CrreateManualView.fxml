@@ -7,7 +7,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
-
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
@@ -15,11 +14,11 @@
 <?import ui.Point?>
 
 
-<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.control.Tooltip?>
 <HBox spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="ui.SettingsController">
+      fx:controller="ui.CreateManualController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
@@ -29,7 +28,7 @@
         <HBox spacing="7.0">
             <VBox spacing="5.0">
                 <Button text="Д1"></Button>
-                <Button text="Д2"></Button>
+                <Button text="Д2" ></Button>
                 <Button>
                     <tooltip><Tooltip text="Загрузить" /></tooltip>
                     <graphic>
@@ -76,15 +75,8 @@
         <Label text="Дифференцируемая функция"/>
         <HBox spacing="7.0">
             <VBox spacing="5.0">
-                <Button text="Посчитать"></Button>
-                <Button>
-                    <tooltip><Tooltip text="Сохранить" /></tooltip>
-                    <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" >
-                            <Image url="@./img/save.png" />
-                        </ImageView>
-                    </graphic>
-                </Button>
+                <Button text="По"></Button>
+                <Button text="Со"></Button>
             </VBox>
             <TableView prefWidth="110.0" >
                 <columns>

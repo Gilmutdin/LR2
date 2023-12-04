@@ -7,7 +7,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
-
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
@@ -15,8 +14,11 @@
 <?import ui.Point?>
 
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.Tooltip?>
 <HBox spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="ui.SettingsController">
+      fx:controller="ui.OperationsController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
@@ -26,9 +28,24 @@
         <HBox spacing="7.0">
             <VBox spacing="5.0">
                 <Button text="Д1"></Button>
-                <Button text="Д2"></Button>
-                <Button text="Со"></Button>
-                <Button text="За"></Button>
+                <Button text="Д2" onAction="#onCreateMathFunc1ButtonClick"></Button>
+                <Button>
+                    <tooltip><Tooltip text="Загрузить" /></tooltip>
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" >
+                            <Image url="@./img/download.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button>
+                    <tooltip><Tooltip text="Сохранить" /></tooltip>
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" >
+                            <Image url="@./img/save.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+
             </VBox>
             <TableView prefWidth="110.0" >
                 <columns>
@@ -59,9 +76,23 @@
         <HBox spacing="7.0">
         <VBox spacing="5.0">
             <Button text="Д1"></Button>
-            <Button text="Д2"></Button>
-            <Button text="Со"></Button>
-            <Button text="За"></Button>
+            <Button text="Д2" onAction="#onCreateMathFunc2ButtonClick"></Button>
+            <Button>
+                <tooltip><Tooltip text="Загрузить" /></tooltip>
+                <graphic>
+                    <ImageView fitHeight="16.0" fitWidth="16.0" >
+                        <Image url="@./img/download.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button>
+                <tooltip><Tooltip text="Сохранить" /></tooltip>
+                <graphic>
+                    <ImageView fitHeight="16.0" fitWidth="16.0" >
+                        <Image url="@./img/save.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
         </VBox>
         <TableView prefWidth="110.0" >
             <columns>
@@ -91,7 +122,46 @@
         <Label text="Результат"/>
         <HBox spacing="7.0">
             <VBox spacing="5.0">
-                <Button text="Со"></Button>
+                <Button>
+                    <tooltip><Tooltip text="Сложение" /></tooltip>
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" >
+                            <Image url="@./img/plus.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button>
+                    <tooltip><Tooltip text="Вычитание" /></tooltip>
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" >
+                            <Image url="@./img/minus.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button>
+                    <tooltip><Tooltip text="Умножение" /></tooltip>
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" >
+                            <Image url="@./img/mul.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button>
+                    <tooltip><Tooltip text="Деление" /></tooltip>
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" >
+                            <Image url="@./img/division.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button>
+                    <tooltip><Tooltip text="Сохранить" /></tooltip>
+                    <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" >
+                            <Image url="@./img/save.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
             </VBox>
             <TableView prefWidth="110.0" >
                 <columns>
