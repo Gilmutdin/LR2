@@ -2,6 +2,8 @@ package ui;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -24,5 +26,10 @@ public class Window {
             //todo выдавать диалоговое окно с ошибкой
             System.out.println(ex);
         }
+    }
+
+    public static void showAlert(String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
+        alert.showAndWait();
     }
 }

@@ -27,7 +27,7 @@
         <Label text="Таблица1"/>
         <HBox spacing="7.0">
             <VBox spacing="5.0">
-                <Button text="Д1"></Button>
+                <Button text="Д1"  onAction="#onCreateManualFunc1ButtonClick"></Button>
                 <Button text="Д2" onAction="#onCreateMathFunc1ButtonClick"></Button>
                 <Button>
                     <tooltip><Tooltip text="Загрузить" /></tooltip>
@@ -75,7 +75,7 @@
         <Label text="Таблица2"/>
         <HBox spacing="7.0">
         <VBox spacing="5.0">
-            <Button text="Д1"></Button>
+            <Button text="Д1" onAction="#onCreateManualFunc2ButtonClick"></Button>
             <Button text="Д2" onAction="#onCreateMathFunc2ButtonClick"></Button>
             <Button>
                 <tooltip><Tooltip text="Загрузить" /></tooltip>
