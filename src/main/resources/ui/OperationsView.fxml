@@ -24,15 +24,29 @@
     </padding>
 
     <VBox spacing="10.0">
-        <Label text="Таблица1"/>
+        <Label text="Таблица 1"/>
         <HBox spacing="7.0">
             <VBox spacing="5.0">
-                <Button text="Д1"  onAction="#onCreateManualFunc1ButtonClick"></Button>
-                <Button text="Д2" onAction="#onCreateMathFunc1ButtonClick"></Button>
+                <Button onAction="#onCreateManualFunc1ButtonClick">
+                    <tooltip><Tooltip text="Задать руками" /></tooltip>
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" >
+                            <Image url="@./img/manual.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button onAction="#onCreateMathFunc1ButtonClick">
+                    <tooltip><Tooltip text="Задать мат функцию" /></tooltip>
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" >
+                            <Image url="@./img/formula.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
                 <Button>
                     <tooltip><Tooltip text="Загрузить" /></tooltip>
                     <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" >
+                        <ImageView fitHeight="20.0" fitWidth="20.0" >
                             <Image url="@./img/download.png" />
                         </ImageView>
                     </graphic>
@@ -40,7 +54,7 @@
                 <Button>
                     <tooltip><Tooltip text="Сохранить" /></tooltip>
                     <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" >
+                        <ImageView fitHeight="20.0" fitWidth="20.0" >
                             <Image url="@./img/save.png" />
                         </ImageView>
                     </graphic>
@@ -72,15 +86,29 @@
     </VBox>
 
     <VBox spacing="10.0">
-        <Label text="Таблица2"/>
+        <Label text="Таблица 2"/>
         <HBox spacing="7.0">
         <VBox spacing="5.0">
-            <Button text="Д1" onAction="#onCreateManualFunc2ButtonClick"></Button>
-            <Button text="Д2" onAction="#onCreateMathFunc2ButtonClick"></Button>
+            <Button onAction="#onCreateManualFunc2ButtonClick">
+                <tooltip><Tooltip text="Задать руками" /></tooltip>
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" >
+                        <Image url="@./img/manual.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button onAction="#onCreateMathFunc2ButtonClick">
+                <tooltip><Tooltip text="Задать мат функцию" /></tooltip>
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" >
+                        <Image url="@./img/formula.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
             <Button>
                 <tooltip><Tooltip text="Загрузить" /></tooltip>
                 <graphic>
-                    <ImageView fitHeight="16.0" fitWidth="16.0" >
+                    <ImageView fitHeight="20.0" fitWidth="20.0" >
                         <Image url="@./img/download.png" />
                     </ImageView>
                 </graphic>
@@ -88,7 +116,7 @@
             <Button>
                 <tooltip><Tooltip text="Сохранить" /></tooltip>
                 <graphic>
-                    <ImageView fitHeight="16.0" fitWidth="16.0" >
+                    <ImageView fitHeight="20.0" fitWidth="20.0" >
                         <Image url="@./img/save.png" />
                     </ImageView>
                 </graphic>
@@ -125,7 +153,7 @@
                 <Button>
                     <tooltip><Tooltip text="Сложение" /></tooltip>
                     <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" >
+                        <ImageView fitHeight="20.0" fitWidth="20.0" >
                             <Image url="@./img/plus.png" />
                         </ImageView>
                     </graphic>
@@ -133,7 +161,7 @@
                 <Button>
                     <tooltip><Tooltip text="Вычитание" /></tooltip>
                     <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" >
+                        <ImageView fitHeight="20.0" fitWidth="20.0" >
                             <Image url="@./img/minus.png" />
                         </ImageView>
                     </graphic>
@@ -141,7 +169,7 @@
                 <Button>
                     <tooltip><Tooltip text="Умножение" /></tooltip>
                     <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" >
+                        <ImageView fitHeight="20.0" fitWidth="20.0" >
                             <Image url="@./img/mul.png" />
                         </ImageView>
                     </graphic>
@@ -149,7 +177,7 @@
                 <Button>
                     <tooltip><Tooltip text="Деление" /></tooltip>
                     <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" >
+                        <ImageView fitHeight="20.0" fitWidth="20.0" >
                             <Image url="@./img/division.png" />
                         </ImageView>
                     </graphic>
@@ -157,7 +185,7 @@
                 <Button>
                     <tooltip><Tooltip text="Сохранить" /></tooltip>
                     <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" >
+                        <ImageView fitHeight="20.0" fitWidth="20.0" >
                             <Image url="@./img/save.png" />
                         </ImageView>
                     </graphic>

@@ -19,7 +19,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <HBox spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="ui.SettingsController">
+      fx:controller="ui.DiffController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
@@ -28,12 +28,26 @@
         <Label text="Оригинальная функция"/>
         <HBox spacing="7.0">
             <VBox spacing="5.0">
-                <Button text="Д1"></Button>
-                <Button text="Д2"></Button>
+                <Button onAction="#onCreateManualFuncButtonClick">
+                    <tooltip><Tooltip text="Задать руками" /></tooltip>
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" >
+                            <Image url="@./img/manual.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button onAction="#onCreateMathFuncButtonClick">
+                    <tooltip><Tooltip text="Задать мат функцию" /></tooltip>
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" >
+                            <Image url="@./img/formula.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
                 <Button>
                     <tooltip><Tooltip text="Загрузить" /></tooltip>
                     <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" >
+                        <ImageView fitHeight="20.0" fitWidth="20.0" >
                             <Image url="@./img/download.png" />
                         </ImageView>
                     </graphic>
@@ -41,7 +55,7 @@
                 <Button>
                     <tooltip><Tooltip text="Сохранить" /></tooltip>
                     <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" >
+                        <ImageView fitHeight="20.0" fitWidth="20.0" >
                             <Image url="@./img/save.png" />
                         </ImageView>
                     </graphic>
@@ -80,7 +94,7 @@
                 <Button>
                     <tooltip><Tooltip text="Сохранить" /></tooltip>
                     <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" >
+                        <ImageView fitHeight="20.0" fitWidth="20.0" >
                             <Image url="@./img/save.png" />
                         </ImageView>
                     </graphic>

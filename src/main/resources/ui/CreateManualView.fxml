@@ -33,6 +33,11 @@
                     <Insets top="10"/>
                 </VBox.margin>
             </Button>
+            <Button text="Сохранить" onAction="#onSaveTableButtonClick" maxWidth="120">
+                <VBox.margin>
+                    <Insets top="10"/>
+                </VBox.margin>
+            </Button>
         </VBox>
     </VBox>
     <TableView fx:id="table" prefWidth="110.0" editable="true">

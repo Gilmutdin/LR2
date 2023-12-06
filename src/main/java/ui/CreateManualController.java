@@ -42,5 +42,9 @@ public class CreateManualController {
        table.setItems(points);
 
     }
+
+    protected void onSaveTableButtonClick(){
+        //
+    }
    
 }
