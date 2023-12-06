@@ -1,5 +1,6 @@
 package ui;
 
+import functions.TabulatedFunction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -13,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import static ui.Window.openWindow;
 
 public class CreateManualController {
+
     ObservableList<Point> points;
     @FXML
     TableView table;
@@ -28,6 +30,7 @@ public class CreateManualController {
             if (cnt < 2) {
                 //если ввели отрицательное число
                 Window.showAlert("Ввели отрицательное число. Необходимо ввести число >= 2");
+                return;
             }
        }
        catch(NumberFormatException e){

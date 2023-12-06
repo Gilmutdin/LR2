@@ -7,4 +7,9 @@ public class LinkedListTabulatedFunctionFactory implements TabulatedFunctionFact
         var funk = new LinkedListTabulatedFunction(xValues, yValues);
         return funk;
     }
+
+    public TabulatedFunction create(MathFunction source, double xFrom, double xTo, int count) {
+        var funk = new LinkedListTabulatedFunction(source, xFrom, xTo, count);
+        return funk;
+    }
 }

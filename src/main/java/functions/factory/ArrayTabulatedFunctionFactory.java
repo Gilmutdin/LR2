@@ -7,4 +7,9 @@ public class ArrayTabulatedFunctionFactory implements TabulatedFunctionFactory {
         var funk = new ArrayTabulatedFunction(xValues, yValues);
         return funk;
     }
+
+    public TabulatedFunction create(MathFunction source, double xFrom, double xTo, int count) {
+        var funk = new ArrayTabulatedFunction(source, xFrom, xTo, count);
+        return funk;
+    }
 }

@@ -1,5 +1,6 @@
 package ui;
 
+import functions.TabulatedFunction;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -9,7 +10,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Window {
-    public static void openWindow(int width, int height, String title, String viewRecource) {
+    public static void showAlert(String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
+        alert.showAndWait();
+    }
+
+    public static Stage createWindow(int width, int height, String title, String viewRecource) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainAppWindow.class.getResource(viewRecource));
             Scene scene = new Scene(fxmlLoader.load(), width, height);
@@ -20,16 +26,37 @@ public class Window {
             stage.initModality(Modality.NONE);
             //stage.initOwner(primaryStage);
 
-            stage.show();
+            return stage;
         }
         catch (Exception ex) {
             //todo выдавать диалоговое окно с ошибкой
             System.out.println(ex);
         }
+        return null;
     }
 
-    public static void showAlert(String message){
-        Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
-        alert.showAndWait();
+    // показываем не модальное окно
+    public static void openWindow(int width, int height, String title, String viewRecource) {
+        Stage wnd = createWindow(width, height, title, viewRecource);
+        if (wnd != null)
+            wnd.show();
     }
+
+    // открывает модаль окно создания ф-ции, получает и возвращает ф-ю и закрывает окно
+    public static TabulatedFunction openFuncWindow(int width, int height, String title, String viewRecource) {
+        var wnd = createWindow(width, height, title, viewRecource);
+        if (wnd != null) {
+            TabulatedFunction func = null;
+
+            wnd.initModality(Modality.APPLICATION_MODAL);
+            wnd.setUserData(func);
+            wnd.showAndWait();
+
+            // получаем созданную ф-ю из окошка
+            func = (TabulatedFunction)wnd.getUserData();
+            return func;
+        }
+        return null;
+    }
+
 }

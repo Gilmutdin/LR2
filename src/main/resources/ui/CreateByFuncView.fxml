@@ -10,6 +10,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.TextField?>
 
+<!-- создание табл ф-ции по математической -->
+
 <VBox spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="ui.CreateByFuncController">
     <padding>
@@ -47,5 +49,5 @@
         </VBox>
     </HBox>
 
-    <Button text="Создать" minWidth="100"/>
+    <Button fx:id="createButton" text="Создать" minWidth="100" onAction="#onCreateButtonClick"/>
 </VBox>

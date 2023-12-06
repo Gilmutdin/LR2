@@ -2,6 +2,7 @@ package functions.factory;
 import functions.*;
 public interface TabulatedFunctionFactory {
     TabulatedFunction create(double[] xValues, double[] yValues);
+    TabulatedFunction create(MathFunction source, double xFrom, double xTo, int count);
 
     // реализация метода по умолчанию - в интерфейсе
     // поэтому не делаем реализации в соотв классах
