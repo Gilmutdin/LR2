@@ -1,15 +1,14 @@
 package ui;
 
-import functions.Point;
-import functions.SqrFunction;
-import functions.TabulatedFunction;
-import functions.factory.ArrayTabulatedFunctionFactory;
+import functions.*;
 import functions.factory.TabulatedFunctionFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import java.util.*;
 
 public class CreateByFuncController {
     @FXML
@@ -21,6 +20,8 @@ public class CreateByFuncController {
     @FXML
     TextField Xend;
 
+    @FXML
+    ComboBox funcType;
     @FXML
     public Button createButton;
     @FXML
@@ -61,11 +62,30 @@ public class CreateByFuncController {
         stage.close();
     }
 
+
     private TabulatedFunction createFunc(int cnt, double Xstart, double Xend) {
+
+        TabulatedFunctionFactory fact = Settings.factory;
         // todo создавать фабрику по типу функции из дастроек
         // todo map с типом мат функции
-        TabulatedFunctionFactory fact = Settings.factory;
-        TabulatedFunction func = fact.create(new SqrFunction(), Xstart, Xend, cnt);
+        String selectedItem = (String) funcType.getSelectionModel().getSelectedItem();
+        MathFunction source = null;
+        switch (selectedItem){
+            case "Линейная: y = x":
+                source = new IdentityFunction();
+                break;
+            case "Квадрат: y = x²":
+                source = new SqrFunction();
+                break;
+            case "Константа: y = const":
+                source = new ConstantFunction(Xstart);
+                break;
+            case "Арктангенс: y = 2*arctg(x)":
+                source = new AtanFunction();
+                break;
+        }
+
+        TabulatedFunction func = fact.create(source, Xstart, Xend, cnt);
 
         return func;
     }

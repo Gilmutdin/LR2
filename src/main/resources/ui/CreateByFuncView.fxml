@@ -20,12 +20,12 @@
 
     <VBox>
         <Label text="Выберите тип функции"/>
-        <ComboBox value="Линейная: y = x" maxWidth="165">
+        <ComboBox fx:id="funcType" value="Линейная: y = x" maxWidth="165">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Линейная: y = x" fx:id="lin"/>
                     <String fx:value="Квадрат: y = x²" fx:id="sqr"/>
-                    <String fx:value="Константа: y = const" fx:id="const"/>
+                    <String fx:value="Константа: y = const" fx:id="constant"/>
                     <String fx:value="Арктангенс: y = 2*arctg(x)" fx:id="arc"/>
                 </FXCollections>
             </items>

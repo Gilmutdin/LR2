@@ -46,6 +46,7 @@ public class CreateManualController {
 
     }
 
+    @FXML
     protected void onSaveTableButtonClick(){
         //
     }
