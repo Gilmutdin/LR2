@@ -63,12 +63,15 @@ public class TabulatedFunctionOperationService
 
         for (int i = 0; i < sizeA; i++)
         {
+            /* ???
             if (pointsA[i].x != pointsB[i].x)
             {
                 throw new InconsistentFunctionsException("Значения x в функциях не совпадают");
             }
+            */
             xValues[i] = pointsA[i].x;
             yValues[i] = operation.apply(pointsA[i].y, pointsB[i].y);
+
         }
         TabulatedFunction function = factory.create(xValues, yValues);
         return function;
