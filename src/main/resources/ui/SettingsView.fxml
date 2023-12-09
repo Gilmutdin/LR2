@@ -24,7 +24,7 @@
         </items>
     </ComboBox>
 
-    <Button text="Сохранить"  onAction="#onSaveButtonClick">
+    <Button text="Сохранить" fx:id="saveButton" onAction="#onSaveButtonClick">
         <VBox.margin>
             <Insets top="10"/>
         </VBox.margin>
