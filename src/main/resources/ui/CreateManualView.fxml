@@ -28,41 +28,38 @@
         <VBox>
             <Label text="Количество значений"/>
             <TextField fx:id="pointsCnt" maxWidth="120" text="2"/>
+
             <Button text="Применить" onAction="#onApplyCntButtonClick" maxWidth="120">
                 <VBox.margin>
                     <Insets top="10"/>
                 </VBox.margin>
             </Button>
-            <Button text="Сохранить" onAction="#onSaveTableButtonClick" maxWidth="120">
+
+            <Button text="Создать" fx:id="createButton" onAction="#onCreateButtonClick" maxWidth="120">
                 <VBox.margin>
                     <Insets top="10"/>
                 </VBox.margin>
             </Button>
         </VBox>
     </VBox>
+
     <TableView fx:id="table" prefWidth="110.0" editable="true">
         <columns>
-            <TableColumn prefWidth="50.0" text="X"  editable="true">
+            <TableColumn prefWidth="50.0" text="X"  editable="true" onEditCommit="#colEdit" >
                 <cellValueFactory>
                     <PropertyValueFactory property="Xstr" />
                 </cellValueFactory>
-                <cellFactory>
-                    <TextFieldTableCell fx:factory="forTableColumn" />
-                </cellFactory>
+                <cellFactory><TextFieldTableCell fx:factory="forTableColumn" /></cellFactory>
             </TableColumn>
-            <TableColumn prefWidth="50.0" text="Y" editable="true">
+            <TableColumn prefWidth="50.0" text="Y" editable="true" onEditCommit="#colEdit" >
                 <cellValueFactory>
                     <PropertyValueFactory property="Ystr" />
                 </cellValueFactory>
-                <cellFactory>
-                    <TextFieldTableCell fx:factory="forTableColumn" />
-                </cellFactory>
+                <cellFactory><TextFieldTableCell fx:factory="forTableColumn" /></cellFactory>
             </TableColumn>
         </columns>
         <items>
-            <FXCollections fx:factory="observableArrayList">
-
-            </FXCollections>
+            <FXCollections fx:factory="observableArrayList"/>
         </items>
     </TableView>
 </HBox>

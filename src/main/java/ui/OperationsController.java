@@ -53,30 +53,39 @@ public class OperationsController {
         func1 = SaveAndRead.read();
         fillTable(func1, table1);
     }
+
     @FXML
     protected void onReadButton2Click() throws IOException, ClassNotFoundException {
         func1 = SaveAndRead.read();
         fillTable(func2, table1);
     }
+
     @FXML
     protected void onCreateMathFunc1ButtonClick(){
         var func = openFuncWindow(400, 200, "Конструктор математических функций", "CreateByFuncView.fxml");
-        fillTable(func, table1);
         func1 = func;
+        fillTable(func, table1);
     }
+
     @FXML
     protected void onCreateMathFunc2ButtonClick(){
         var func = openFuncWindow(400, 200, "Конструктор математических функций", "CreateByFuncView.fxml");
-        fillTable(func, table2);
         func2 = func;
+        fillTable(func, table2);
     }
+
     @FXML
     protected void onCreateManualFunc1ButtonClick(){
-        openFuncWindow(300, 400, "Ручной ввод функций", "CreateManualView.fxml");
+        var func = openFuncWindow(300, 400, "Ручной ввод функций", "CreateManualView.fxml");
+        func1 = func;
+        fillTable(func, table1);
     }
+
     @FXML
     protected void onCreateManualFunc2ButtonClick(){
-        openFuncWindow(300, 400, "Ручной ввод функций", "CreateManualView.fxml");
+        var func = openFuncWindow(300, 400, "Ручной ввод функций", "CreateManualView.fxml");
+        func2 = func;
+        fillTable(func, table2);
     }
 
     // -----операции

@@ -33,7 +33,11 @@ public class Point {
     }
 
     public void setXstr(String x) {
-        this.x = Double.parseDouble(x);
+        try {
+            this.x = Double.parseDouble(x);
+        } catch (Exception err) {
+            // не меняем старое значение
+        }
     }
 
     public String getYstr() {
@@ -41,7 +45,11 @@ public class Point {
     }
 
     public void setYstr(String y) {
-        this.y = Double.parseDouble(y);
+        try {
+            this.y = Double.parseDouble(y);
+        } catch (Exception err) {
+            // не меняем старое значение
+        }
     }
 
 }
