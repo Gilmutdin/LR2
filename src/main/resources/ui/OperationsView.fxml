@@ -42,7 +42,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button>
+                <Button onAction="#onReadButton1Click">
                     <tooltip><Tooltip text="Загрузить" /></tooltip>
                     <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" >
@@ -50,7 +50,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button>
+                <Button onAction="#onSaveButton1Click">
                     <tooltip><Tooltip text="Сохранить" /></tooltip>
                     <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" >
@@ -98,7 +98,7 @@
                     </ImageView>
                 </graphic>
             </Button>
-            <Button>
+            <Button onAction="#onReadButton2Click">
                 <tooltip><Tooltip text="Загрузить" /></tooltip>
                 <graphic>
                     <ImageView fitHeight="20.0" fitWidth="20.0" >
@@ -106,7 +106,7 @@
                     </ImageView>
                 </graphic>
             </Button>
-            <Button>
+            <Button onAction="#onSaveButton2Click">
                 <tooltip><Tooltip text="Сохранить" /></tooltip>
                 <graphic>
                     <ImageView fitHeight="20.0" fitWidth="20.0" >
@@ -169,7 +169,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button>
+                <Button onAction="#onSaveButton3Click">
                     <tooltip><Tooltip text="Сохранить" /></tooltip>
                     <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" >
