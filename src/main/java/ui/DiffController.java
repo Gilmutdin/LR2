@@ -102,6 +102,11 @@ public class DiffController {
     }
 
     public void onAddPointToFuncButtonClick(ActionEvent actionEvent) {
+        if (!checkFuncNotNull(func1)){
+            //если функции не заданы
+            Window.showAlert("Вы не задали функцию");
+            return;
+        }
         var tblView = table1;
 
         // получить тек строку
@@ -144,6 +149,11 @@ public class DiffController {
     }
 
     public void onDelPointFromFuncButtonClick(ActionEvent actionEvent) {
+        if (!checkFuncNotNull(func1)){
+            //если функции не заданы
+            Window.showAlert("Вы не задали функцию");
+            return;
+        }
         // не удалять когда 2
         if (func1.getCount() <= 2) {
             Window.showAlert("Значений в таблице не должно быть меньше 2х");

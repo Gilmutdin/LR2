@@ -199,6 +199,12 @@ public class OperationsController {
 
     //...
     public void onAddPointToFunc1ButtonClick(ActionEvent actionEvent) {
+        if (!checkFuncNotNull(func1)){
+            //если функции не заданы
+            Window.showAlert("Вы не задали функцию");
+            return;
+        }
+
         var tblView = table1;
 
         // получить тек строку
@@ -241,6 +247,11 @@ public class OperationsController {
     }
 
     public void onDelPointFromFunc1ButtonClick(ActionEvent actionEvent) {
+        if (!checkFuncNotNull(func1)){
+            //если функции не заданы
+            Window.showAlert("Вы не задали функцию");
+            return;
+        }
         // не удалять когда 2
         if (func1.getCount() <= 2) {
             Window.showAlert("Значений в таблице не должно быть меньше 2х");
@@ -259,6 +270,11 @@ public class OperationsController {
     }
 
     public void onAddPointToFunc2ButtonClick(ActionEvent actionEvent) {
+        if (!checkFuncNotNull(func2)){
+            //если функции не заданы
+            Window.showAlert("Вы не задали функцию");
+            return;
+        }
         var tblView = table2;
 
         // получить тек строку
@@ -301,6 +317,11 @@ public class OperationsController {
     }
 
     public void onDelPointFromFunc2ButtonClick(ActionEvent actionEvent) {
+        if (!checkFuncNotNull(func2)){
+            //если функции не заданы
+            Window.showAlert("Вы не задали функцию");
+            return;
+        }
         // не удалять когда 2
         if (func2.getCount() <= 2) {
             Window.showAlert("Значений в таблице не должно быть меньше 2х");

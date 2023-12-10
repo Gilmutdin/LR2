@@ -53,7 +53,7 @@
                     <tooltip><Tooltip text="Добавить значение" /></tooltip>
                     <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" >
-                            <Image url="@./img/plus.png" />
+                            <Image url="@./img/insert.png" />
                         </ImageView>
                     </graphic>
                 </Button>
@@ -64,7 +64,7 @@
                     <tooltip><Tooltip text="Удалить значение" /></tooltip>
                     <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" >
-                            <Image url="@./img/minus.png" />
+                            <Image url="@./img/remove.png" />
                         </ImageView>
                     </graphic>
                 </Button>
