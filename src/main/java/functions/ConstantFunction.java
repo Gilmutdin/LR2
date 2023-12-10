@@ -1,5 +1,6 @@
 package functions;
 
+@SimpleFunction(name="Константа", order=1)
 public class ConstantFunction implements MathFunction
 {
     private final double constVal;

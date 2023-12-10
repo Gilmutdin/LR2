@@ -2,15 +2,23 @@ package ui;
 
 import functions.*;
 import functions.factory.TabulatedFunctionFactory;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import java.util.*;
+import javafx.fxml.Initializable;
+import org.reflections.Reflections;
 
-public class CreateByFuncController {
+import java.lang.annotation.Annotation;
+import java.net.URL;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+public class CreateByFuncController implements Initializable  {
     @FXML
     TextField pointsCnt;
 
@@ -24,6 +32,46 @@ public class CreateByFuncController {
     ComboBox funcType;
     @FXML
     public Button createButton;
+
+    @Override // This method is called by the FXMLLoader when initialization is complete
+    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+        var funcItems = FXCollections.observableArrayList();
+
+        // рефлексей получаем список классов простых функций
+        Reflections reflections = new Reflections("functions");
+        Iterable<Class<? extends Object>> allClasses =
+                reflections.getTypesAnnotatedWith(SimpleFunction.class);
+
+        // заполняем список
+        for (var x: allClasses) {
+            Class cl = (Class) x;
+            SimpleFunction annotation = (SimpleFunction)cl.getAnnotation(SimpleFunction.class);
+            funcItems.add( new Item(annotation.name(), annotation.order(), cl) );
+        }
+
+        // funcItems.sort TODO
+        funcType.setItems(funcItems);
+    }
+
+    public class Item {
+        public String name;
+
+        public int order;
+
+        public Class cls;
+
+        public Item(String name, int order, Class cls) {
+            this.name = name;
+            this.order = order;
+            this.cls = cls;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
+
     @FXML
     protected void onCreateButtonClick(ActionEvent event) {
         int cnt = 0;
@@ -64,23 +112,31 @@ public class CreateByFuncController {
 
 
     private TabulatedFunction createFunc(int cnt, double Xstart, double Xend) {
-
         TabulatedFunctionFactory fact = Settings.factory;
-        // todo создавать фабрику по типу функции из дастроек
-        // todo map с типом мат функции
-        String selectedItem = (String) funcType.getSelectionModel().getSelectedItem();
+
+        var itm = (Item) funcType.getSelectionModel().getSelectedItem();
+        Class cls = itm.cls;
+        String clsName = cls.getName();
+
+        // todo создавать ф-ю по классу
         MathFunction source = null;
-        switch (selectedItem){
-            case "Линейная: y = x":
+        switch (clsName) {
+            case "functions.IdentityFunction":
                 source = new IdentityFunction();
                 break;
-            case "Квадрат: y = x²":
+            case "functions.SqrFunction":
                 source = new SqrFunction();
                 break;
-            case "Константа: y = const":
+            case "functions.ConstantFunction":
                 source = new ConstantFunction(Xstart);
                 break;
-            case "Арктангенс: y = 2*arctg(x)":
+            case "functions.UnitFunction":
+                source = new UnitFunction();
+                break;
+            case "functions.ZeroFunction":
+                source = new ZeroFunction();
+                break;
+            case "functions.AtanFunction":
                 source = new AtanFunction();
                 break;
         }

@@ -1,5 +1,6 @@
 package functions;
 
+@SimpleFunction(name="Линейная функция", order=2)
 public class IdentityFunction implements MathFunction
 {
     public double apply(double x)
