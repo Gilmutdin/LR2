@@ -1,12 +1,18 @@
 package ui;
 
+import functions.Insertable;
+import functions.Removable;
 import functions.TabulatedFunction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import static operations.TabulatedFunctionOperationService.asPoints;
 import static ui.Window.openFuncWindow;
@@ -77,6 +83,82 @@ public class DiffController {
             return;
         }
         SaveAndRead.save(func2);
+    }
+
+
+    //---- редактирование
+    public void colEdit(TableColumn.CellEditEvent<ui.Point, String> evt) {
+        //!! TODO - потом переписать на прямое изменение точек ф-цц без промежуточной коллекции итемсов
+        String val = evt.getNewValue();
+        var tblView = evt.getTableView();
+        var idx = evt.getTablePosition().getRow();
+        ui.Point point = (ui.Point) tblView.getItems().get(idx);
+        point.setYstr(val);
+
+        if (tblView == table1)
+            func1.setY(idx, point.getY());
+        else
+            func2.setY(idx, point.getY());
+    }
+
+    public void onAddPointToFuncButtonClick(ActionEvent actionEvent) {
+        var tblView = table1;
+
+        // получить тек строку
+        table1.requestFocus();
+        var idx = table1.getFocusModel().getFocusedCell().getRow();
+
+        // Хнов = Хтек + Хтек+1 / 2  или просто Хтек +1 если послед
+        double Xnew = (idx < func1.getCount() - 1 ) ? (func1.getX(idx) + func1.getX(idx+1))/2 : func1.getX(idx) + 1;
+
+        //--- показать стд окошо ввода 1 числа, заполнить по умол
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Добавить новое значение X");
+        dialog.setHeaderText("Добавьте новое значение X. \nЗначение Y отредактируйте в таблице самостоятельно.");
+        dialog.setContentText("Введите X:");
+
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            try {
+                Xnew = Double.parseDouble(result.get());
+            }
+            catch (Exception ex){
+                Window.showAlert("Ввели не число");
+                return;
+            }
+        }
+        // Унов = упред
+        double Ynew = func1.getY(idx);
+
+        // добавляем в табл
+        ((Insertable)func1).insert(Xnew, Ynew);
+
+        //// добавить в итемсы после тек
+        tblView.getItems().add(idx+1, new functions.Point(Xnew, Ynew));
+        // пересчет итемсы (врем)
+        fillTable(func1, table1);
+
+        table1.getSelectionModel().select(idx+1);
+        table1.getFocusModel().focus(idx+1);
+    }
+
+    public void onDelPointFromFuncButtonClick(ActionEvent actionEvent) {
+        // не удалять когда 2
+        if (func1.getCount() <= 2) {
+            Window.showAlert("Значений в таблице не должно быть меньше 2х");
+            return;
+        }
+
+        var tblView = table1;
+        // получить тек строку
+        table1.requestFocus();
+        var idx = table1.getFocusModel().getFocusedCell().getRow();
+
+        // удалить из итемсов
+        tblView.getItems().remove(idx);
+        // удалить из табл
+        ((Removable)func1).remove(idx);
     }
 
 }

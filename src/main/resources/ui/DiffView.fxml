@@ -10,6 +10,7 @@
 
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.TextFieldTableCell?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import ui.Point?>
@@ -44,6 +45,30 @@
                         </ImageView>
                     </graphic>
                 </Button>
+
+                <Button onAction="#onAddPointToFuncButtonClick">
+                    <VBox.margin>
+                        <Insets><top>10</top></Insets>
+                    </VBox.margin>
+                    <tooltip><Tooltip text="Добавить значение" /></tooltip>
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" >
+                            <Image url="@./img/plus.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button onAction="#onDelPointFromFuncButtonClick">
+                    <VBox.margin>
+                        <Insets><bottom>10</bottom></Insets>
+                    </VBox.margin>
+                    <tooltip><Tooltip text="Удалить значение" /></tooltip>
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" >
+                            <Image url="@./img/minus.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+
                 <Button onAction="#onReadButtonClick">
                     <tooltip><Tooltip text="Загрузить" /></tooltip>
                     <graphic>
@@ -62,17 +87,18 @@
                 </Button>
 
             </VBox>
-            <TableView fx:id="table1" prefWidth="110.0" >
+            <TableView fx:id="table1" prefWidth="110.0" editable="true">
                 <columns>
                     <TableColumn prefWidth="50.0" text="X" fx:id="XColumn">
                         <cellValueFactory>
                             <PropertyValueFactory property="x" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn prefWidth="50.0" text="Y" fx:id="YColumn">
+                    <TableColumn prefWidth="50.0" text="Y" fx:id="YColumn" editable="true" onEditCommit="#colEdit">
                         <cellValueFactory>
-                            <PropertyValueFactory property="y" />
+                            <PropertyValueFactory property="Ystr" />
                         </cellValueFactory>
+                        <cellFactory><TextFieldTableCell fx:factory="forTableColumn" /></cellFactory>
                     </TableColumn>
                 </columns>
 
