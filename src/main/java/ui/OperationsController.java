@@ -42,9 +42,7 @@ public class OperationsController {
     }
 
     protected boolean checkFuncNotNull(TabulatedFunction fu){
-        if (fu == null)
-            return false;
-        return true;
+        return (fu != null);
     }
 
     // -----задание функций
@@ -62,7 +60,7 @@ public class OperationsController {
         var func = SaveAndRead.read();
         if (checkFuncNotNull(func)) {
             func2 = func;
-            fillTable(func2, table1);
+            fillTable(func2, table2);
         }
     }
 

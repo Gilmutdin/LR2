@@ -31,9 +31,7 @@ public class DiffController {
         table.setItems(points);
     }
     protected boolean checkFuncNotNull(TabulatedFunction fu){
-        if (fu == null)
-            return false;
-        return true;
+        return (fu != null);
     }
     @FXML
     protected void onCreateMathFuncButtonClick(){
