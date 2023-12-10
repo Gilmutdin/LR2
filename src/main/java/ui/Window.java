@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -14,11 +15,14 @@ public class Window {
     public static void showAlert(String message){
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
 
-        //ImageView icon = new ImageView("./germx.png");
-        //icon.setFitHeight(48);
-        //icon.setFitWidth(48);
+        /*
+        Image image = new Image("../../../ui/img/germ.png");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(48);
+        imageView.setFitWidth(48);
+        alert.setGraphic(imageView);
+         */
 
-        //alert.getDialogPane().setGraphic(icon);
         alert.showAndWait();
     }
 
@@ -36,7 +40,7 @@ public class Window {
             return stage;
         }
         catch (Exception ex) {
-            //todo выдавать диалоговое окно с ошибкой
+            showAlert("Ошибка создания окна");
             System.out.println(ex);
         }
         return null;
@@ -45,8 +49,12 @@ public class Window {
     // показываем не модальное окно
     public static void openWindow(int width, int height, String title, String viewRecource) {
         Stage wnd = createWindow(width, height, title, viewRecource);
-        if (wnd != null)
+
+        if (wnd != null) {
+            wnd.initModality(Modality.APPLICATION_MODAL);
             wnd.show();
+        }
+        else showAlert("Ошибка открытия окна");
     }
 
     // открывает модаль окно создания ф-ции, получает и возвращает ф-ю и закрывает окно
@@ -63,6 +71,7 @@ public class Window {
             func = (TabulatedFunction)wnd.getUserData();
             return func;
         }
+        else showAlert("Ошибка открытия окна");
         return null;
     }
 

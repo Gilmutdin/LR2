@@ -32,13 +32,13 @@ public class OperationsController {
 
     //----
     private void fillTable(TabulatedFunction func, TableView table){
-        ObservableList<ui.Point> points = FXCollections.observableArrayList();
-        Point[] funcPoints = asPoints(func);
-        int cnt = funcPoints.length;
-        for (int i = 0; i < cnt; i++){
-            points.add(new ui.Point(funcPoints[i].x,funcPoints[i].y));
-        }
-        table.setItems(points);
+            ObservableList<ui.Point> points = FXCollections.observableArrayList();
+            Point[] funcPoints = asPoints(func);
+            int cnt = funcPoints.length;
+            for (int i = 0; i < cnt; i++) {
+                points.add(new ui.Point(funcPoints[i].x, funcPoints[i].y));
+            }
+            table.setItems(points);
     }
 
     protected boolean checkFuncNotNull(TabulatedFunction fu){
@@ -51,41 +51,53 @@ public class OperationsController {
     @FXML
     protected void onReadButton1Click() throws IOException, ClassNotFoundException {
         func1 = SaveAndRead.read();
-        fillTable(func1, table1);
+        if (checkFuncNotNull(func1)) {
+            fillTable(func1, table1);
+        }
     }
 
     @FXML
     protected void onReadButton2Click() throws IOException, ClassNotFoundException {
-        func1 = SaveAndRead.read();
-        fillTable(func2, table1);
+        func2 = SaveAndRead.read();
+        if (checkFuncNotNull(func2)) {
+            fillTable(func2, table1);
+        }
     }
 
     @FXML
     protected void onCreateMathFunc1ButtonClick(){
         var func = openFuncWindow(400, 200, "Конструктор математических функций", "CreateByFuncView.fxml");
-        func1 = func;
-        fillTable(func, table1);
+        if (checkFuncNotNull(func)) {
+            func1 = func;
+            fillTable(func, table1);
+        }
     }
 
     @FXML
     protected void onCreateMathFunc2ButtonClick(){
         var func = openFuncWindow(400, 200, "Конструктор математических функций", "CreateByFuncView.fxml");
-        func2 = func;
-        fillTable(func, table2);
+        if (checkFuncNotNull(func)) {
+            func2 = func;
+            fillTable(func, table2);
+        }
     }
 
     @FXML
     protected void onCreateManualFunc1ButtonClick(){
         var func = openFuncWindow(300, 400, "Ручной ввод функций", "CreateManualView.fxml");
-        func1 = func;
-        fillTable(func, table1);
+        if (checkFuncNotNull(func)) {
+            func1 = func;
+            fillTable(func, table1);
+        }
     }
 
     @FXML
     protected void onCreateManualFunc2ButtonClick(){
         var func = openFuncWindow(300, 400, "Ручной ввод функций", "CreateManualView.fxml");
-        func2 = func;
-        fillTable(func, table2);
+        if (checkFuncNotNull(func)) {
+            func2 = func;
+            fillTable(func, table2);
+        }
     }
 
     // -----операции
