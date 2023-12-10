@@ -50,16 +50,18 @@ public class OperationsController {
     // -----задание функций
     @FXML
     protected void onReadButton1Click() throws IOException, ClassNotFoundException {
-        func1 = SaveAndRead.read();
-        if (checkFuncNotNull(func1)) {
+        var func = SaveAndRead.read();
+        if (checkFuncNotNull(func)) {
+            func1 = func;
             fillTable(func1, table1);
         }
     }
 
     @FXML
     protected void onReadButton2Click() throws IOException, ClassNotFoundException {
-        func2 = SaveAndRead.read();
-        if (checkFuncNotNull(func2)) {
+        var func = SaveAndRead.read();
+        if (checkFuncNotNull(func)) {
+            func2 = func;
             fillTable(func2, table1);
         }
     }

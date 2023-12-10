@@ -32,19 +32,22 @@ public class SaveAndRead {
         }
 
         File file = fileChooser.showSaveDialog(stage);
-        var filetype = fileChooser.getSelectedExtensionFilter().getDescription();
 
-        if (file != null && filetype == "JSON") {
-            serializeJson(new BufferedWriter(new FileWriter(file)), (ArrayTabulatedFunction) func);
-        }
-        else if (file != null && filetype == "XML") {
-            serializeXml(new BufferedWriter(new FileWriter(file)), (ArrayTabulatedFunction) func);
-        }
-        else if (file != null && filetype == "txt") {
-            writeTabulatedFunction(new BufferedWriter(new FileWriter(file)), func);
-        }
-        else if (file != null && filetype == "bin") {
-            serialize(new BufferedOutputStream(new FileOutputStream(file)), func);
+        if (file != null) {
+            var filetype = fileChooser.getSelectedExtensionFilter().getDescription();
+
+            if (filetype == "JSON") {
+                serializeJson(new BufferedWriter(new FileWriter(file)), (ArrayTabulatedFunction) func);
+            }
+            else if (filetype == "XML") {
+                serializeXml(new BufferedWriter(new FileWriter(file)), (ArrayTabulatedFunction) func);
+            }
+            else if (filetype == "txt") {
+                writeTabulatedFunction(new BufferedWriter(new FileWriter(file)), func);
+            }
+            else if (filetype == "bin") {
+                serialize(new BufferedOutputStream(new FileOutputStream(file)), func);
+            }
         }
     }
 

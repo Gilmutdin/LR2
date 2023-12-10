@@ -44,7 +44,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button>
+                <Button onAction="#onReadButtonClick">
                     <tooltip><Tooltip text="Загрузить" /></tooltip>
                     <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" >
@@ -52,7 +52,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button>
+                <Button onAction="#onSaveButton1Click">
                     <tooltip><Tooltip text="Сохранить" /></tooltip>
                     <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" >
@@ -62,7 +62,7 @@
                 </Button>
 
             </VBox>
-            <TableView prefWidth="110.0" >
+            <TableView fx:id="table1" prefWidth="110.0" >
                 <columns>
                     <TableColumn prefWidth="50.0" text="X" fx:id="XColumn">
                         <cellValueFactory>
@@ -75,13 +75,7 @@
                         </cellValueFactory>
                     </TableColumn>
                 </columns>
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <Point x="1.34" y="1.78"/>
-                        <Point x="2" y="2"/>
-                        <Point x="3" y="3"/>
-                    </FXCollections>
-                </items>
+
             </TableView>
         </HBox>
     </VBox>
@@ -91,7 +85,7 @@
         <HBox spacing="7.0">
             <VBox spacing="5.0">
                 <Button text="Посчитать"></Button>
-                <Button>
+                <Button onAction="#onSaveButton2Click">
                     <tooltip><Tooltip text="Сохранить" /></tooltip>
                     <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" >
@@ -100,7 +94,7 @@
                     </graphic>
                 </Button>
             </VBox>
-            <TableView prefWidth="110.0" >
+            <TableView fx:id="table2" prefWidth="110.0" >
                 <columns>
                     <TableColumn prefWidth="50.0" text="X" fx:id="XfColumn">
                         <cellValueFactory>
@@ -113,13 +107,7 @@
                         </cellValueFactory>
                     </TableColumn>
                 </columns>
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <Point x="1.34" y="1.78"/>
-                        <Point x="2" y="2"/>
-                        <Point x="3" y="3"/>
-                    </FXCollections>
-                </items>
+
             </TableView>
         </HBox>
     </VBox>
