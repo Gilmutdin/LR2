@@ -23,5 +23,6 @@
     </Label>
     <Button text="Операции над двумя функциями" onAction="#onOperationsButtonClick"/>
     <Button text="Дифференцирование функции" onAction="#onDiffButtonClick"/>
+    <Button text="Интеграл" onAction="#onIntegralButtonClick"/>
     <Button text="Настройки" onAction="#onSettingsButtonClick"/>
 </VBox>

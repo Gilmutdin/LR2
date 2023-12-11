@@ -23,6 +23,10 @@ public class MainAppController {
         openWindow(500, 500, "Дифференцирование функции", "DiffView.fxml");
     }
     @FXML
+    protected void onIntegralButtonClick() {
+        openWindow(500, 500, "Интеграл", "IntegralView.fxml");
+    }
+    @FXML
     protected void onSettingsButtonClick() {
         openWindow(320, 240, "Настройки", "SettingsView.fxml");
     }
