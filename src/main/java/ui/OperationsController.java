@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import operations.TabulatedFunctionOperationService;
@@ -212,14 +214,18 @@ public class OperationsController {
         var idx = table1.getFocusModel().getFocusedCell().getRow();
 
         // Хнов = Хтек + Хтек+1 / 2  или просто Хтек +1 если послед
-        double Xnew = (idx < func1.getCount() - 1 ) ? (func1.getX(idx) + func1.getX(idx+1))/2 : func1.getX(idx) + 1;
+        double Xnew = 0;
 
         //--- показать стд окошо ввода 1 числа, заполнить по умол
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Добавить новое значение X");
         dialog.setHeaderText("Добавьте новое значение X. \nЗначение Y отредактируйте в таблице самостоятельно.");
         dialog.setContentText("Введите X:");
-
+        Image image = new Image((Window.class.getResource("img/manual.png").toExternalForm()));
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(48);
+        imageView.setFitWidth(48);
+        dialog.setGraphic(imageView);
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
@@ -231,6 +237,7 @@ public class OperationsController {
                 return;
             }
         }
+        else return;
         // Унов = упред
         double Ynew = func1.getY(idx);
 
@@ -289,7 +296,11 @@ public class OperationsController {
         dialog.setTitle("Добавить новое значение X");
         dialog.setHeaderText("Добавьте новое значение X. \nЗначение Y отредактируйте в таблице самостоятельно.");
         dialog.setContentText("Введите X:");
-
+        Image image = new Image((Window.class.getResource("img/manual.png").toExternalForm()));
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(48);
+        imageView.setFitWidth(48);
+        dialog.setGraphic(imageView);
 
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){

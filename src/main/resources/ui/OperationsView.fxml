@@ -23,7 +23,7 @@
 
     <!-- панель 1 -->
     <VBox spacing="10.0">
-        <Label text="Таблица 1"/>
+        <Label id="tblLabel" text="Таблица 1"/>
         <HBox spacing="7.0">
             <VBox spacing="5.0">
                 <Button onAction="#onCreateManualFunc1ButtonClick">
@@ -105,7 +105,7 @@
 
     <!-- панель 2 -->
     <VBox spacing="10.0">
-        <Label text="Таблица 2"/>
+        <Label id="tblLabel" text="Таблица 2"/>
         <HBox spacing="7.0">
         <VBox spacing="5.0">
             <Button onAction="#onCreateManualFunc2ButtonClick">
@@ -186,7 +186,7 @@
 
     <!-- панель 3 -->
     <VBox spacing="10.0">
-        <Label text="Результат"/>
+        <Label id="tblLabel" text="Результат"/>
         <HBox spacing="7.0">
             <VBox spacing="5.0">
                 <Button onAction="#onPlusButtonClick">

@@ -27,7 +27,10 @@
     </padding>
 
     <VBox spacing="10.0">
-        <Label text="Оригинальная функция"/>
+        <HBox.margin>
+            <Insets><left>10</left></Insets>
+        </HBox.margin>
+        <Label id="tblLabel" text="Оригинальная функция"/>
         <HBox spacing="7.0">
             <VBox spacing="5.0">
                 <Button onAction="#onCreateManualFuncButtonClick">
@@ -86,8 +89,8 @@
                         </ImageView>
                     </graphic>
                 </Button>
-
             </VBox>
+
             <TableView fx:id="table1" prefWidth="110.0" editable="true">
                 <columns>
                     <TableColumn prefWidth="50.0" text="X" fx:id="XColumn">
@@ -108,7 +111,10 @@
     </VBox>
 
     <VBox spacing="10.0">
-        <Label text="Дифференцируемая функция"/>
+        <HBox.margin>
+            <Insets><left>30</left></Insets>
+        </HBox.margin>
+        <Label id="tblLabel" text="Дифференцируемая функция"/>
         <HBox spacing="7.0">
             <VBox spacing="5.0">
                 <Button>
