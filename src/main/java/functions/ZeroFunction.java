@@ -1,6 +1,6 @@
 package functions;
 
-@SimpleFunction(name="Нулевая функция", order=11)
+@SimpleFunction(name="Нулевая функция", order=6)
 public class ZeroFunction extends ConstantFunction
 {
     public ZeroFunction()

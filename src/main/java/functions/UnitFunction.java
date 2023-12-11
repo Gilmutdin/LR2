@@ -1,6 +1,6 @@
 package functions;
 
-@SimpleFunction(name="Единичная функция", order=10)
+@SimpleFunction(name="Единичная функция", order=5)
 public class UnitFunction extends ConstantFunction
 {
     public UnitFunction()

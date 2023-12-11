@@ -49,8 +49,9 @@ public class CreateByFuncController implements Initializable  {
             funcItems.add( new Item(annotation.name(), annotation.order(), cl) );
         }
 
-        // funcItems.sort TODO
+        funcItems.sort((p1, p2) -> (int)Math.signum(((Item)p1).order - ((Item)p2).order));
         funcType.setItems(funcItems);
+        funcType.getSelectionModel().select(0);
     }
 
     public class Item {

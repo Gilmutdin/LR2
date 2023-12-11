@@ -20,7 +20,7 @@
 
     <VBox spacing="5.0">
         <Label text="Выберите тип функции"/>
-        <ComboBox fx:id="funcType" value="" maxWidth="165"/>
+        <ComboBox fx:id="funcType"  maxWidth="165"/>
     </VBox>
 
     <HBox spacing="20.0">
