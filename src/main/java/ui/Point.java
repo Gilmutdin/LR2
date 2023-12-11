@@ -32,11 +32,13 @@ public class Point {
         return String.valueOf(this.x);
     }
 
-    public void setXstr(String x) {
+    public boolean setXstr(String x) {
         try {
             this.x = Double.parseDouble(x);
+            return true;
         } catch (Exception err) {
             // не меняем старое значение
+            return false;
         }
     }
 
@@ -44,11 +46,13 @@ public class Point {
         return String.valueOf(this.y);
     }
 
-    public void setYstr(String y) {
+    public boolean setYstr(String y) {
         try {
             this.y = Double.parseDouble(y);
+            return true;
         } catch (Exception err) {
             // не меняем старое значение
+            return false;
         }
     }
 

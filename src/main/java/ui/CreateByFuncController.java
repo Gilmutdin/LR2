@@ -50,6 +50,7 @@ public class CreateByFuncController implements Initializable  {
         }
 
         funcItems.sort((p1, p2) -> (int)Math.signum(((Item)p1).order - ((Item)p2).order));
+        
         funcType.setItems(funcItems);
         funcType.getSelectionModel().select(0);
     }

@@ -1,7 +1,5 @@
 package ui;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import functions.TabulatedFunction;
 import functions.factory.TabulatedFunctionFactory;
@@ -90,12 +88,17 @@ public class CreateManualController {
 
     public void colEdit(TableColumn.CellEditEvent<Point, String> evt) {
         String val = evt.getNewValue();
-        Point point = (Point) evt.getTableView().getItems().get(
+        var tblView = evt.getTableView();
+        Point point = (Point) tblView.getItems().get(
                 evt.getTablePosition().getRow());
+        boolean res;
         if (evt.getTablePosition().getColumn() == 0)
-            point.setXstr(val);
+            res = point.setXstr(val);
         else
-            point.setYstr(val);
+            res = point.setYstr(val);
+        if (! res)
+            tblView.refresh();
+        tblView.requestFocus();
     }
 
 }

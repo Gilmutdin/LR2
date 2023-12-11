@@ -186,17 +186,17 @@ public class OperationsController {
     //---- редактирование
 
     public void colEdit(TableColumn.CellEditEvent<ui.Point, String> evt) {
-        //!! TODO - потом переписать на прямое изменение точек ф-цц без промежуточной коллекции итемсов
         String val = evt.getNewValue();
         var tblView = evt.getTableView();
         var idx = evt.getTablePosition().getRow();
         ui.Point point = (ui.Point) tblView.getItems().get(idx);
-        point.setYstr(val);
 
-        if (tblView == table1)
-            func1.setY(idx, point.getY());
+        boolean res = point.setYstr(val);
+        if (! res)
+            tblView.refresh();
         else
-            func2.setY(idx, point.getY());
+            ((tblView == table1) ? func1 : func2).setY(idx, point.getY());
+        tblView.requestFocus();
     }
 
     //...

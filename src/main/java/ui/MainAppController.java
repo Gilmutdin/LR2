@@ -28,7 +28,7 @@ public class MainAppController {
     }
     @FXML
     protected void onSettingsButtonClick() {
-        openWindow(320, 240, "Настройки", "SettingsView.fxml");
+        openWindow(320, 200, "Настройки", "SettingsView.fxml");
     }
 
 }
