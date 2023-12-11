@@ -12,6 +12,8 @@ public class MainAppWindow extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainAppWindow.class.getResource("MainAppView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 300);
+        // стили
+        scene.getStylesheets().add(Window.class.getResource("style.css").toExternalForm());
         stage.setTitle("Математические функции");
         stage.setScene(scene);
         stage.show();

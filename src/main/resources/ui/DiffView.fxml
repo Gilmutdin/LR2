@@ -19,6 +19,7 @@
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+
 <HBox spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="ui.DiffController">
     <padding>
@@ -32,7 +33,7 @@
                 <Button onAction="#onCreateManualFuncButtonClick">
                     <tooltip><Tooltip text="Задать руками" /></tooltip>
                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" >
+                        <ImageView fitHeight="25.0" fitWidth="25.0" >
                             <Image url="@./img/manual.png" />
                         </ImageView>
                     </graphic>
@@ -40,7 +41,7 @@
                 <Button onAction="#onCreateMathFuncButtonClick">
                     <tooltip><Tooltip text="Задать мат функцию" /></tooltip>
                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" >
+                        <ImageView fitHeight="25.0" fitWidth="25.0" >
                             <Image url="@./img/formula.png" />
                         </ImageView>
                     </graphic>
@@ -52,7 +53,7 @@
                     </VBox.margin>
                     <tooltip><Tooltip text="Добавить значение" /></tooltip>
                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" >
+                        <ImageView fitHeight="25.0" fitWidth="25.0" >
                             <Image url="@./img/insert.png" />
                         </ImageView>
                     </graphic>
@@ -63,7 +64,7 @@
                     </VBox.margin>
                     <tooltip><Tooltip text="Удалить значение" /></tooltip>
                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" >
+                        <ImageView fitHeight="25.0" fitWidth="25.0" >
                             <Image url="@./img/remove.png" />
                         </ImageView>
                     </graphic>
@@ -72,7 +73,7 @@
                 <Button onAction="#onReadButtonClick">
                     <tooltip><Tooltip text="Загрузить" /></tooltip>
                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" >
+                        <ImageView fitHeight="25.0" fitWidth="25.0" >
                             <Image url="@./img/download.png" />
                         </ImageView>
                     </graphic>
@@ -80,7 +81,7 @@
                 <Button onAction="#onSaveButton1Click">
                     <tooltip><Tooltip text="Сохранить" /></tooltip>
                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" >
+                        <ImageView fitHeight="25.0" fitWidth="25.0" >
                             <Image url="@./img/save.png" />
                         </ImageView>
                     </graphic>
@@ -110,11 +111,18 @@
         <Label text="Дифференцируемая функция"/>
         <HBox spacing="7.0">
             <VBox spacing="5.0">
-                <Button text="Посчитать"></Button>
+                <Button>
+                    <tooltip><Tooltip text="Посчитать" /></tooltip>
+                    <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" >
+                            <Image url="@./img/diff.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
                 <Button onAction="#onSaveButton2Click">
                     <tooltip><Tooltip text="Сохранить" /></tooltip>
                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" >
+                        <ImageView fitHeight="25.0" fitWidth="25.0" >
                             <Image url="@./img/save.png" />
                         </ImageView>
                     </graphic>

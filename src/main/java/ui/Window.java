@@ -15,13 +15,12 @@ public class Window {
     public static void showAlert(String message){
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
 
-        /*
-        Image image = new Image("../../../ui/img/germ.png");
+
+        Image image = new Image((Window.class.getResource("img/germ.png").toExternalForm()));
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(48);
         imageView.setFitWidth(48);
         alert.setGraphic(imageView);
-         */
 
         alert.showAndWait();
     }
@@ -30,6 +29,8 @@ public class Window {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainAppWindow.class.getResource(viewRecource));
             Scene scene = new Scene(fxmlLoader.load(), width, height);
+            // стили
+            scene.getStylesheets().add(Window.class.getResource("style.css").toExternalForm());
             Stage stage = new Stage();
             stage.setTitle(title);
             stage.setScene(scene);
