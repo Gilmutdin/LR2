@@ -22,9 +22,10 @@ public class SettingsController {
         // получать из селекта ИД фабрики
         String selectedType = (String) type.getSelectionModel().getSelectedItem();
         // по ИД (ифом) создавать объект нужной фабрики
-        TabulatedFunctionFactory fact = (selectedType == "Массив") ?
+        TabulatedFunctionFactory fact = (selectedType.equals("Массив")) ?
                 new ArrayTabulatedFunctionFactory() :
                 new LinkedListTabulatedFunctionFactory();
+
         // записывать его (фабрику как объект) в поле настроек
         Settings.factory = fact;
 
