@@ -1,6 +1,7 @@
 package ui;
 
 import functions.Insertable;
+import functions.ParallelIntegrator;
 import functions.Removable;
 import functions.TabulatedFunction;
 import javafx.collections.FXCollections;
@@ -10,10 +11,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
+import operations.TabulatedDifferentialOperator;
 
 import java.io.IOException;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
+import java.lang.InterruptedException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -22,8 +25,8 @@ import static operations.TabulatedFunctionOperationService.asPoints;
 import static ui.Window.openFuncWindow;
 import static ui.Window.openWindow;
 
-public class IntegralController {
-
+public class IntegralController
+{
     @FXML
     TableView table1;
     @FXML
@@ -174,34 +177,45 @@ public class IntegralController {
         // удалить из табл
         ((Removable)func1).remove(idx);
     }
-    private double calculateIntegral(TabulatedFunction func)
+
+    private interface BiOperation
     {
-        double integral = 0.0;
-        for (int i = 1; i < func.getCount(); i++)
-        {
-            double h = func.getX(i) - func.getX(i - 1);
-            double sum = (func.getY(i) + func.getY(i - 1)) / 2.0 * h;
-            integral += sum;
-        }
-        return integral;
+        TabulatedFunction apply(TabulatedFunction f1);
     }
 
-    // метод для параллельного вычисления интегралов для двух функций
-    private void calculateIntegralsInParallel()
+    private void doOperation(BiOperation operation)
     {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        Future<Double> integral1 = executor.submit(() -> calculateIntegral(func1));
-        Future<Double> integral2 = executor.submit(() -> calculateIntegral(func2));
+        // если функция не задана
+        if (!checkFuncNotNull(func1))
+        {
+            Window.showAlert("Вы не задали функцию 1");
+            return;
+        }
 
         try
         {
-            double result1 = integral1.get();
-            double result2 = integral2.get();
+            func2 = operation.apply(func1);
+            fillTable(func2, table2);
         }
-        catch (InterruptedException | ExecutionException e)
+        catch (Exception ex)
         {
-            e.printStackTrace();
+            Window.showAlert(ex.getMessage());
         }
-        executor.shutdown();
+    }
+
+    @FXML
+    protected void onIntegralButtonClick()
+    {
+//        doOperation((f1) ->
+//        {
+//            try
+//            {
+//                return new ParallelIntegrator(2).integrate(f1, 0.001);
+//            }
+//            catch (InterruptedException | ExecutionException e)
+//            {
+//                throw new RuntimeException(e);
+//            }
+//        });
     }
 }
