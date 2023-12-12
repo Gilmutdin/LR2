@@ -2,6 +2,7 @@ package ui;
 
 import functions.ParallelIntegrator;
 import functions.TabulatedFunction;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -81,16 +82,15 @@ public class IntegralController extends BaseFuncController {
     protected void onIntegralButtonClick()
     {
         // если функция не задана
-        if (!checkFuncNotNull(func1))
-        {
+        if (!checkFuncNotNull(func1)) {
             Window.showAlert("Вы не задали функцию");
             return;
         }
 
-        int thrCnt = 1; double pr = 0.01;
+        int thrCntTmp = 1;
         try {
-            thrCnt = Integer.parseInt(threadsCnt.getText());
-            if (thrCnt < 1){
+            thrCntTmp = Integer.parseInt(threadsCnt.getText());
+            if (thrCntTmp < 1) {
                 //если ввели <= 0
                 Window.showAlert("Число потоков должно быть >= 1");
                 return;
@@ -100,9 +100,12 @@ public class IntegralController extends BaseFuncController {
             Window.showAlert("Ввели не число в числе потоков");
             return;
         }
+        final int thrCnt = thrCntTmp;
+
+        double precTmp = 0.01;
         try {
-            pr = Double.parseDouble(prec.getText());
-            if (pr <= 0){
+            precTmp = Double.parseDouble(prec.getText());
+            if (precTmp <= 0) {
                 //если ввели <= 0
                 Window.showAlert("Точность должна быть > 0");
                 return;
@@ -112,18 +115,39 @@ public class IntegralController extends BaseFuncController {
             Window.showAlert("Ввели не число в точности");
             return;
         }
+        final double prec = precTmp;
 
         IntegralButton.setDisable(true);
-        integralVal.setText("Считаем ...");
-        double res = 0;
-        try {
-            res = new ParallelIntegrator(thrCnt).integrate(func1, pr);
-        }
-        catch (Exception ex) {
-            Window.showAlert("Ошибка в вычислении интеграла");
-        }
+        integralVal.setText("Считаем в " + String.valueOf(thrCnt) + " потоков ...");
 
-        integralVal.setText(String.valueOf(res));
-        IntegralButton.setDisable(false);
+        // фоновая задача на расчет
+        Task<Double> task = new Task<Double>() {
+            @Override
+            public Double call() {
+                try {
+                    return new ParallelIntegrator(thrCnt).integrate(func1, prec);
+                } catch (Exception ex) {
+                    return null;
+                }
+            }
+        };
+
+        task.setOnSucceeded((e) -> {
+            // выводим результат
+            try {
+                final Double r = task.get();
+                integralVal.setText(String.valueOf(r));
+                IntegralButton.setDisable(false);
+            } catch (Exception ex) {
+                integralVal.setText("ошибка расчета");
+                IntegralButton.setDisable(false);
+            }
+        });
+        task.setOnFailed((e) -> {
+            integralVal.setText("ошибка выполнения");
+            IntegralButton.setDisable(false);
+        });
+        new Thread(task).start();
+
     }
 }

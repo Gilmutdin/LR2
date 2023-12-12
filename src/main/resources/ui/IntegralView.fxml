@@ -12,20 +12,17 @@
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-
-
 <?import javafx.scene.control.TextField?>
-<HBox spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="ui.IntegralController">
+
+
+<HBox spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="ui.IntegralController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
     <VBox spacing="10.0">
-        <HBox.margin>
-            <Insets><left>10</left></Insets>
-        </HBox.margin>
         <Label id="tblLabel" text="Оригинальная функция"/>
+
         <HBox spacing="7.0">
             <VBox spacing="5.0">
                 <Button onAction="#onCreateManualFuncButtonClick">
@@ -86,7 +83,8 @@
                 </Button>
             </VBox>
 
-            <TableView fx:id="table1" prefWidth="110.0" editable="true">
+            <TableView fx:id="table1" prefWidth="110.0" prefHeight="1000" editable="true">
+                <placeholder><Label text=" Нет данных "/></placeholder>
                 <columns>
                     <TableColumn prefWidth="50.0" text="X" fx:id="XColumn">
                         <cellValueFactory>
@@ -106,9 +104,9 @@
     </VBox>
 
     <VBox spacing="10.0">
-        <VBox.margin>
-            <Insets><left>40</left></Insets>
-        </VBox.margin>
+        <HBox.margin>
+            <Insets><left>30</left></Insets>
+        </HBox.margin>
         <Label id="tblLabel" text="Интеграл"/>
 
         <HBox spacing="20.0">

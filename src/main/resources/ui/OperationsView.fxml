@@ -90,6 +90,7 @@
             </VBox>
 
             <TableView fx:id="table1" prefWidth="210.0" prefHeight="1000" editable="true">
+                <placeholder><Label text=" Нет данных "/></placeholder>
                 <columns>
                     <TableColumn prefWidth="50.0" text="X" fx:id="XColumn">
                         <cellValueFactory>
@@ -173,6 +174,7 @@
             </VBox>
 
             <TableView fx:id="table2" prefWidth="210.0" prefHeight="1000" editable="true">
+                <placeholder><Label text=" Нет данных "/></placeholder>
                 <columns>
                     <TableColumn prefWidth="50.0" text="X" fx:id="XfColumn">
                         <cellValueFactory>

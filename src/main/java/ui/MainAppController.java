@@ -24,7 +24,7 @@ public class MainAppController {
     }
     @FXML
     protected void onIntegralButtonClick() {
-        openWindow(520, 500, "Интеграл", "IntegralView.fxml");
+        openWindow(550, 500, "Интеграл", "IntegralView.fxml");
     }
     @FXML
     protected void onSettingsButtonClick() {

@@ -43,6 +43,7 @@
     </VBox>
 
     <TableView fx:id="table" prefWidth="110.0" editable="true">
+        <placeholder><Label text=" Нет данных "/></placeholder>
         <columns>
             <TableColumn prefWidth="50.0" text="X"  editable="true" onEditCommit="#colEdit" >
                 <cellValueFactory>
