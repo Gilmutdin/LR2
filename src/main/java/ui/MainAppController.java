@@ -16,11 +16,11 @@ public class MainAppController {
 
     @FXML
     protected void onOperationsButtonClick() {
-        openWindow(550, 500, "Операции над 2мя функциями", "OperationsView.fxml");
+        openWindow(550, 500, "Операции над 2-мя функциями", "OperationsView.fxml");
     }
     @FXML
     protected void onDiffButtonClick() {
-        openWindow(500, 500, "Дифференцирование функции", "DiffView.fxml");
+        openWindow(590, 500, "Дифференцирование функции", "DiffView.fxml");
     }
     @FXML
     protected void onIntegralButtonClick() {
