@@ -4,19 +4,24 @@ import functions.ParallelIntegrator;
 import functions.TabulatedFunction;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+
 import java.io.IOException;
 import static ui.Window.openFuncWindow;
 
 
 public class IntegralController extends BaseFuncController {
-    @FXML
-    TableView table1;
 
     @FXML
+    TableView table1;
+    @FXML
+    TextField threadsCnt;
+    @FXML
+    TextField prec;
+    @FXML
     Label integralVal;
+    @FXML
+    Button IntegralButton;
 
     private TabulatedFunction func1 = null;
 
@@ -78,21 +83,47 @@ public class IntegralController extends BaseFuncController {
         // если функция не задана
         if (!checkFuncNotNull(func1))
         {
-            Window.showAlert("Вы не задали функцию 1");
+            Window.showAlert("Вы не задали функцию");
             return;
         }
 
-        try
-        {
-            var threadsCnt = 4;
-            var prec = 0.001;
-            var res = new ParallelIntegrator(threadsCnt).integrate(func1, prec);
+        int thrCnt = 1; double pr = 0.01;
+        try {
+            thrCnt = Integer.parseInt(threadsCnt.getText());
+            if (thrCnt < 1){
+                //если ввели <= 0
+                Window.showAlert("Число потоков должно быть >= 1");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            //если ввели не число
+            Window.showAlert("Ввели не число в числе потоков");
+            return;
+        }
+        try {
+            pr = Double.parseDouble(prec.getText());
+            if (pr <= 0){
+                //если ввели <= 0
+                Window.showAlert("Точность должна быть > 0");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            //если ввели не число
+            Window.showAlert("Ввели не число в точности");
+            return;
+        }
 
-            integralVal.setText(String.valueOf(res));
+        IntegralButton.setDisable(true);
+        integralVal.setText("Считаем ...");
+        double res = 0;
+        try {
+            res = new ParallelIntegrator(thrCnt).integrate(func1, pr);
         }
-        catch (Exception ex)
-        {
-            Window.showAlert(ex.getMessage());
+        catch (Exception ex) {
+            Window.showAlert("Ошибка в вычислении интеграла");
         }
+
+        integralVal.setText(String.valueOf(res));
+        IntegralButton.setDisable(false);
     }
 }

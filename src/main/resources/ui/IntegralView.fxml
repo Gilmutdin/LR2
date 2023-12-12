@@ -14,6 +14,7 @@
 <?import javafx.scene.image.Image?>
 
 
+<?import javafx.scene.control.TextField?>
 <HBox spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="ui.IntegralController">
     <padding>
@@ -105,20 +106,35 @@
     </VBox>
 
     <VBox spacing="10.0">
-        <HBox.margin>
-            <Insets><left>30</left></Insets>
-        </HBox.margin>
+        <VBox.margin>
+            <Insets><left>40</left></Insets>
+        </VBox.margin>
         <Label id="tblLabel" text="Интеграл"/>
 
-        <Button onAction="#onIntegralButtonClick">
-            <tooltip><Tooltip text="Посчитать" /></tooltip>
-            <graphic>
-                <ImageView fitHeight="25.0" fitWidth="25.0" >
-                    <Image url="@./img/integral.png" />
-                </ImageView>
-            </graphic>
-        </Button>
+        <HBox spacing="20.0">
+            <Button fx:id="IntegralButton" onAction="#onIntegralButtonClick">
+                <tooltip><Tooltip text="Посчитать" /></tooltip>
+                <graphic>
+                    <ImageView fitHeight="25.0" fitWidth="25.0" >
+                        <Image url="@./img/integral.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
 
-        <Label fx:id="integralVal" text="[рез-т интеграла]"/>
+            <VBox>
+                <Label text="Число потоков"/>
+                <TextField fx:id="threadsCnt" maxWidth="90" text="1"/>
+            </VBox>
+
+            <VBox>
+                <Label text="Точность"/>
+                <TextField fx:id="prec" maxWidth="90" text="0.01"/>
+            </VBox>
+        </HBox>
+        <VBox>
+            <Label id="tblLabel" text="Результат"/>
+            <Label fx:id="integralVal" text="[рез-т интеграла]"/>
+        </VBox>
+
     </VBox>
 </HBox>

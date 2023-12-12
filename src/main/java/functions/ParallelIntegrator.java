@@ -55,8 +55,7 @@ public class ParallelIntegrator
 
         // суммирование результатов
         double totalIntegral = 0.0;
-        for (Future<Double> future : futures)
-        {
+        for (Future<Double> future : futures) {
             totalIntegral += future.get();
         }
 
