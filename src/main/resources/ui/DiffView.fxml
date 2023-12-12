@@ -117,7 +117,7 @@
         <Label id="tblLabel" text="Дифференцируемая функция"/>
         <HBox spacing="7.0">
             <VBox spacing="5.0">
-                <Button>
+                <Button onAction="#onDiffButtonClick">
                     <tooltip><Tooltip text="Посчитать" /></tooltip>
                     <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" >

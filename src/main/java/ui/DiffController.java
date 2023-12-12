@@ -1,8 +1,12 @@
 package ui;
 
+
+import exceptions.InconsistentFunctionsException;
 import functions.Insertable;
 import functions.Removable;
 import functions.TabulatedFunction;
+
+import functions.factory.TabulatedFunctionFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,6 +14,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
+import operations.TabulatedDifferentialOperator;
+import operations.TabulatedFunctionOperationService;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -171,4 +177,33 @@ public class DiffController {
         ((Removable)func1).remove(idx);
     }
 
+    private interface BiOperation
+    {
+        TabulatedFunction apply(TabulatedFunction f1);
+    }
+
+    private void doOperation(BiOperation operation)
+    {
+        // если функция не задана
+        if (!checkFuncNotNull(func1))
+        {
+            Window.showAlert("Вы не задали функцию 1");
+            return;
+        }
+
+        try
+        {
+            func2 = operation.apply(func1);
+            fillTable(func2, table2);
+        }
+        catch (Exception ex)
+        {
+            Window.showAlert(ex.getMessage());
+        }
+    }
+    @FXML
+    protected void onDiffButtonClick()
+    {
+        doOperation((f1) -> new TabulatedDifferentialOperator(Settings.factory).derive(f1));
+    }
 }
