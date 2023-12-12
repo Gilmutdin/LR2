@@ -14,7 +14,6 @@
 
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="ui.CreateManualController">
@@ -37,7 +36,7 @@
 
             <Button text="Создать" fx:id="createButton" onAction="#onCreateButtonClick" maxWidth="120">
                 <VBox.margin>
-                    <Insets top="10"/>
+                    <Insets top="50"/>
                 </VBox.margin>
             </Button>
         </VBox>

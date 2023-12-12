@@ -8,21 +8,30 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+<VBox alignment="CENTER" spacing="10.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="ui.MainAppController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
     <Label>
-    <graphic>
-        <ImageView fitHeight="100.0" fitWidth="100.0" >
-            <Image url="@./img/germ.png" />
-        </ImageView>
-    </graphic>
+        <graphic>
+            <ImageView fitHeight="100.0" fitWidth="100.0" >
+                <Image url="@./img/germ.png" />
+            </ImageView>
+        </graphic>
+        <VBox.margin>
+            <Insets bottom="10"/>
+        </VBox.margin>
     </Label>
-    <Button text="Операции над двумя функциями" onAction="#onOperationsButtonClick"/>
-    <Button text="Дифференцирование функции" onAction="#onDiffButtonClick"/>
-    <Button text="Интеграл" onAction="#onIntegralButtonClick"/>
-    <Button text="Настройки" onAction="#onSettingsButtonClick"/>
+
+    <Button text="Операции над двумя функциями" onAction="#onOperationsButtonClick" minWidth="250"/>
+    <Button text="Дифференцирование функции" onAction="#onDiffButtonClick" minWidth="250"/>
+    <Button text="Интегрирование функции" onAction="#onIntegralButtonClick" minWidth="250"/>
+
+    <Button text="Настройки" onAction="#onSettingsButtonClick">
+        <VBox.margin>
+            <Insets top="10"/>
+        </VBox.margin>
+    </Button>
 </VBox>

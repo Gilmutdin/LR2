@@ -91,7 +91,7 @@
                 </Button>
             </VBox>
 
-            <TableView fx:id="table1" prefWidth="110.0" editable="true">
+            <TableView fx:id="table1" prefWidth="110.0" prefHeight="1000" editable="true">
                 <columns>
                     <TableColumn prefWidth="50.0" text="X" fx:id="XColumn">
                         <cellValueFactory>
@@ -105,7 +105,6 @@
                         <cellFactory><TextFieldTableCell fx:factory="forTableColumn" /></cellFactory>
                     </TableColumn>
                 </columns>
-
             </TableView>
         </HBox>
     </VBox>
@@ -134,7 +133,8 @@
                     </graphic>
                 </Button>
             </VBox>
-            <TableView fx:id="table2" prefWidth="110.0" >
+
+            <TableView fx:id="table2" prefWidth="110.0" prefHeight="1000">
                 <columns>
                     <TableColumn prefWidth="50.0" text="X" fx:id="XfColumn">
                         <cellValueFactory>
@@ -147,8 +147,8 @@
                         </cellValueFactory>
                     </TableColumn>
                 </columns>
-
             </TableView>
+
         </HBox>
     </VBox>
 </HBox>

@@ -15,7 +15,7 @@
     </padding>
 
     <Label fx:id="welcomeText" text="Фабрика табличных функций"/>
-    <ComboBox fx:id="type" value="Массив" maxWidth="165">
+    <ComboBox fx:id="type" value="Массив" minWidth="180">
         <items>
             <FXCollections fx:factory="observableArrayList">
                 <String fx:value="Массив"/>
